@@ -43,7 +43,7 @@ BOCHS_CMD_FDB = $(BOCHS) -q -f $(BOCHS_CFG)/bochsrc-fdb.bxrc
 BOCHS_CMD_HDA = $(BOCHS) -q -f $(BOCHS_CFG)/bochsrc-hd.bxrc
 BOCHS_DBG = .dbg
 
-VM = $(shell cat $(VM_CFG) 2>/dev/null)
+VM ?= $(shell cat $(VM_CFG) 2>/dev/null)
 
 ifeq ($(VM), bochs)
         NEW_VM=qemu

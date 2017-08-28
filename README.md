@@ -72,7 +72,6 @@ If you want to learn the latest [Linux Kernel](http://www.kernel.org), please tr
     $ make help		// get help
     $ make  		// compile
     $ make boot-hd	// boot it on qemu with hard disk image
-    $ make debug-hd	// debug it via qemu & gdb, you'd start gdb to connect it.
     $ make boot-hd G=0 // Use curses based terminal instead of graphics, friendly for ssh login
     $ QEMU_PREBUILT=0 make boot-hd // Don't use prebuilt qemu. latest qemu only boot with hd rootfs
 
@@ -80,26 +79,11 @@ If you want to learn the latest [Linux Kernel](http://www.kernel.org), please tr
     Switch to use emulator: bochs
     $ make boot VM=qemu|bochs    // specify the emulator, between qemu and bochs
 
+    // edit .kernel_gdbinit(for kernel.sym) and .boot_gdbinit(for bootsect.sym and setup.sym) before debugging
 
-    $ gdb images/kernel.sym
-    (gdb) target remote :1234
-    (gdb) b main
-    (gdb) c
-
-    $ gdb boot/bootsect.sym  // debug bootsect, step one instruction
-    (gdb) target remote :1234
-    (gdb) b _start
-    (gdb) si
-
-    $ gdb boot/setup.sym     // debug setup, similar as above
-    (gdb) target remote :1234
-    (gdb) b _start
-    (gdb) si
-
-
-Optional
-
-    $ echo "add-auto-load-safe-path $PWD/.gdbinit" > ~/.gdbinit  // let gdb auto load the commands in .gdbinit
+    $ make debug-hd	// debug images/kernel.sym via qemu and start gdb automatically to connect it.
+    $ make debug-hd ELF_SYM=boot/bootsect.sym  // debug bootsect, step one instruction
+    $ make debug-hd ELF_SYM=boot/setup.sym     // debug setup, similar as above
 
 ## Build on Mac OS X
 

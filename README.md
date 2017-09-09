@@ -178,12 +178,20 @@ Three different root filesystem images are stored in `rootfs/`:
     $ mkdir /path/to/rootram/
     $ sudo mount rootfs/rootram.img /path/to/rootram/
 
+A new target `ramfs-install` is added to install files from `examples/` to ramfs.
+
+    $ make ramfs-install
+
 ### Floppy image
 
 `rootimage-0.11` is a minix filesystem, must with `-t minix` obviously:
 
     $ sudo mkdir /path/to/rootimage/
     $ sudo mount -t minix rootfs/rootimage-0.11 /path/to/rootimage
+
+A new target `flp-install` is added to install files from `examples/` to floppy image.
+
+    $ make flp-install
 
 ### Harddisk image
 
@@ -206,11 +214,29 @@ Three different root filesystem images are stored in `rootfs/`:
 
     $ sudo mount -o offset=$((2*512)) rootfs/hdc-0.11.img /path/to/hdc/
 
-# Examples
+A new target `hda-install` is added to install files from `examples/` to harddisk image.
+
+    $ make hda-install
+
+## Examples
 
 Some examples are stored in `examples/` with their own README.md:
 
-* syscall -- shows how to add a new system call
+### Syscall -- shows how to add a new system call
+
+    Host:
+
+    $ patch -p1 < examples/syscall/syscall.patch
+    $ make start-hd
+
+    Emulator:
+
+    $ cd examples/syscall/
+    $ make
+    as -o syscall.o syscall.s
+    ld -o syscall syscall.o
+    ./syscall
+    Hello, Linux 0.11
 
 ## Changes
 

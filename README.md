@@ -176,7 +176,7 @@ Three different root filesystem images are stored in `rootfs/`:
 `rootram.img` is mountable directly:
 
     $ mkdir /path/to/rootram/
-    $ sudo mount -o rootfs/rootram.img /path/to/rootram/
+    $ sudo mount rootfs/rootram.img /path/to/rootram/
 
 ### Floppy image
 

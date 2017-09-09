@@ -4,7 +4,6 @@ TOOL_DIR = $(TOP_DIR)/tools/
 # Allow to run kernel on different emulators with different prebuilt rootfs
 
 # Rootfs preparation
-
 hda:
 	@make hda -s -C rootfs
 
@@ -13,6 +12,15 @@ flp:
 
 ramfs:
 	@make ramfs -s -C rootfs
+
+hda-install:
+	@make hda-install -s -C rootfs
+
+flp-install:
+	@make flp-install -s -C rootfs
+
+ramfs-install:
+	@make ramfs-install -s -C rootfs
 
 # VM (Qemu/Bochs) Setting for different rootfs
 
@@ -89,15 +97,15 @@ boot-hd: start-hd
 boot-fd: start-fd
 boot: start
 
-start: ramdisk-boot Image
+start: ramdisk-boot Image ramfs-install
 	@$(SETROOTDEV_CMD_RAM)
 	$(VM_CMD)$(VM_DISPLAY)
 
-start-fd: Image flp
+start-fd: Image flp flp-install
 	@$(SETROOTDEV_CMD_FDB)
 	$(VM_CMD_FDB)$(VM_DISPLAY)
 
-start-hd: Image hda
+start-hd: Image hda hda-install
 	@$(SETROOTDEV_CMD_HDA)
 	$(VM_CMD_HDA)$(VM_DISPLAY)
 

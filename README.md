@@ -224,6 +224,8 @@ Some examples are stored in `examples/` with their own README.md:
 
 ### Syscall -- shows how to add a new system call
 
+A new demonstration is added: [Linux 0.11 Lab: Add a new syscall into Linux 0.11](http://showterm.io/4b628301d2d45936a7f8a)
+
     Host:
 
     $ patch -p1 < examples/syscall/syscall.patch

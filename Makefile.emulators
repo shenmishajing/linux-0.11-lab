@@ -16,6 +16,8 @@ ramfs:
 hda-install:
 	@make hda-install -s -C rootfs
 
+hd-install: hda-install
+
 flp-install:
 	@make flp-install -s -C rootfs
 

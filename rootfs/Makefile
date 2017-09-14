@@ -1,33 +1,37 @@
 include ../Makefile.header
 
-HDA_IMG_FLAG := $(shell find ./ -name $(HDA_IMG))
-FLP_IMG_FLAG := $(shell find ./ -name $(FLP_IMG))
-RAM_IMG_FLAG := $(shell find ./ -name $(RAM_IMG))
+_HDA_IMG := $(CURDIR)/$(HDA_IMG)
+_FLP_IMG := $(CURDIR)/$(FLP_IMG)
+_RAM_IMG := $(CURDIR)/$(RAM_IMG)
 
 hda: $(HDA_IMG).xz
-ifeq ($(HDA_IMG_FLAG),)
+ifneq ($(_HDA_IMG), $(wildcard $(_HDA_IMG)))
 	@tar Jvxf $< >/dev/null 2>&1
 endif
 
 flp: $(FLP_IMG).xz
-ifeq ($(FLP_IMG_FLAG),)
+ifneq ($(_FLP_IMG), $(wildcard $(_FLP_IMG)))
 	@tar Jvxf $< >/dev/null 2>&1
 endif
 
 ramfs: $(RAM_IMG).xz
-ifeq ($(RAM_IMG_FLAG),)
+ifneq ($(_RAM_IMG), $(wildcard $(_RAM_IMG)))
 	@tar Jvxf $< >/dev/null 2>&1
 endif
 
 EXAMPLES ?= $(CURDIR)/../examples/
 
 HDA_DIR = $(CURDIR)/hda
-hda-install: hda
+hda-mount: hda
 	mkdir -p $(HDA_DIR)
 	sudo mount -o offset=1024 $(HDA_IMG) $(HDA_DIR)
+hda-umount:
+	sudo umount $(HDA_DIR)
+
+hda-install: hda-mount
 	sudo cp -r $(EXAMPLES) $(HDA_DIR)/usr/root/
 	sync
-	sudo umount $(HDA_DIR)
+	make -s hda-umount
 
 FLP_DIR = $(CURDIR)/flp
 flp-install: flp

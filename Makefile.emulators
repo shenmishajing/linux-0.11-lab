@@ -26,6 +26,15 @@ fd-install: flp-install
 ramfs-install:
 	@make ramfs-install -s -C rootfs
 
+hda-mount:
+	@make hda-mount -s -C rootfs
+
+hda-umount:
+	@make hda-umount -s -C rootfs
+
+hd-mount: hda-mount
+hd-umount: hda-umount
+
 # VM (Qemu/Bochs) Setting for different rootfs
 
 ROOT_RAM = 0000

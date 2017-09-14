@@ -21,6 +21,8 @@ hd-install: hda-install
 flp-install:
 	@make flp-install -s -C rootfs
 
+fd-install: flp-install
+
 ramfs-install:
 	@make ramfs-install -s -C rootfs
 
@@ -53,12 +55,16 @@ BOCHS_CMD_FDB = $(BOCHS) -q -f $(BOCHS_CFG)/bochsrc-fdb.bxrc
 BOCHS_CMD_HDA = $(BOCHS) -q -f $(BOCHS_CFG)/bochsrc-hd.bxrc
 BOCHS_DBG = .dbg
 
-VM ?= $(shell cat $(VM_CFG) 2>/dev/null)
-
-ifeq ($(VM), bochs)
-        NEW_VM=qemu
+ifneq ($(VM),)
+  NEW_VM = $(VM)
 else
-        NEW_VM=bochs
+  VM ?= $(shell cat $(VM_CFG) 2>/dev/null)
+
+  ifeq ($(VM), bochs)
+    NEW_VM=qemu
+  else
+    NEW_VM=bochs
+  endif
 endif
 
 switch:

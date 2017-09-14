@@ -21,43 +21,49 @@ endif
 
 EXAMPLES ?= $(CURDIR)/../examples/
 
-HDA_DIR = $(CURDIR)/hda
+HDA_DIR = $(CURDIR)/_hda
 hda-mount: hda
 	mkdir -p $(HDA_DIR)
 	sudo mount -o offset=1024 $(HDA_IMG) $(HDA_DIR)
 hda-umount:
+ifeq ($(HDA_DIR), $(wildcard $(HDA_DIR)))
 	sudo umount $(HDA_DIR)
+endif
 
 hda-install: hda-mount
 	sudo cp -r $(EXAMPLES) $(HDA_DIR)/usr/root/
 	sync
 	make -s hda-umount
 
-FLP_DIR = $(CURDIR)/flp
+FLP_DIR = $(CURDIR)/_flp
 flp-mount: flp
 	mkdir -p $(FLP_DIR)
 	sudo mount -t minix $(FLP_IMG) $(FLP_DIR)
 flp-umount:
+ifeq ($(FLP_DIR), $(wildcard $(FLP_DIR)))
 	sudo umount $(FLP_DIR)
+endif
 
 flp-install: flp-mount
 	sudo cp -r $(EXAMPLES) $(FLP_DIR)/usr/root/
 	sync
 	make -s flp-umount
 
-RAMFS_DIR = $(CURDIR)/ramfs
+RAMFS_DIR = $(CURDIR)/_ramfs
 ramfs-mount: ramfs
 	mkdir -p $(RAMFS_DIR)
 	sudo mount $(RAM_IMG) $(RAMFS_DIR)
 ramfs-umount:
+ifeq ($(RAMFS_DIR), $(wildcard $(RAMFS_DIR)))
 	sudo umount $(RAMFS_DIR)
+endif
 
 ramfs-install: ramfs-mount
 	sudo cp -r $(EXAMPLES) $(RAMFS_DIR)/usr/root/
 	sync
 	make -s ramfs-umount
 
-clean:
+clean: ramfs-umount flp-umount hda-umount
 	@rm -rf $(HDA_IMG) $(HDA_DIR)
 	@rm -rf $(FLP_IMG) $(FLP_DIR)
-	@rm -rf $(RAM_IMG) $(RAM_DIR)
+	@rm -rf $(RAM_IMG) $(RAMFS_DIR)

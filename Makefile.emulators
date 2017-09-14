@@ -116,11 +116,11 @@ boot-fd: start-fd
 boot: start
 _boot: _start
 
-start: ramdisk-boot Image ramfs-install
+start: ramdisk-boot Image
 	@$(SETROOTDEV_CMD_RAM)
 	$(VM_CMD)$(VM_DISPLAY)
 
-start-fd: Image flp flp-install
+start-fd: Image flp
 	@$(SETROOTDEV_CMD_FDB)
 	$(VM_CMD_FDB)$(VM_DISPLAY)
 
@@ -133,7 +133,7 @@ _start:
 	$(VM_CMD)$(VM_DISPLAY)
 
 # see examples/linux-0.11/README.md
-LINUX_000 ?= $(CURDIR)/rootfs/hda/usr/root/examples/linux-0.00/Image
+LINUX_000 ?= $(CURDIR)/rootfs/_hda/usr/root/examples/linux-0.00/Image
 linux-0.00:
 	@make -s hda-mount -C rootfs/
 	@sudo make _start IMAGE=$(LINUX_000)

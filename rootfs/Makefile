@@ -34,20 +34,28 @@ hda-install: hda-mount
 	make -s hda-umount
 
 FLP_DIR = $(CURDIR)/flp
-flp-install: flp
+flp-mount: flp
 	mkdir -p $(FLP_DIR)
 	sudo mount -t minix $(FLP_IMG) $(FLP_DIR)
-	sudo cp -r $(EXAMPLES) $(FLP_DIR)/usr/root/
-	sync
+flp-umount:
 	sudo umount $(FLP_DIR)
 
+flp-install: flp-mount
+	sudo cp -r $(EXAMPLES) $(FLP_DIR)/usr/root/
+	sync
+	make -s flp-umount
+
 RAMFS_DIR = $(CURDIR)/ramfs
-ramfs-install: ramfs
+ramfs-mount: ramfs
 	mkdir -p $(RAMFS_DIR)
 	sudo mount $(RAM_IMG) $(RAMFS_DIR)
+ramfs-umount:
+	sudo umount $(RAMFS_DIR)
+
+ramfs-install: ramfs-mount
 	sudo cp -r $(EXAMPLES) $(RAMFS_DIR)/usr/root/
 	sync
-	sudo umount $(RAMFS_DIR)
+	make -s ramfs-umount
 
 clean:
 	@rm -rf $(HDA_IMG) $(HDA_DIR)

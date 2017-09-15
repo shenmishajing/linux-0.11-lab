@@ -69,10 +69,11 @@ If you want to learn the latest [Linux Kernel](http://www.kernel.org), please tr
 
 ### Hack Linux 0.11 on Linux
 
+    $ cd src/
     $ make help		// get help
     $ make  		// compile
     $ make boot-hd	// boot it on qemu with hard disk image
-    $ make boot-hd G=0 // Use curses based terminal instead of graphics, friendly for ssh login
+    $ make boot-hd G=0 // Use curses based terminal instead of graphics, friendly for ssh login, exit with 'ESC+2'
     $ QEMU_PREBUILT=0 make boot-hd // Don't use prebuilt qemu. latest qemu only boot with hd rootfs
 
     $ make switch                // switch to another emulator, between qemu and bochs

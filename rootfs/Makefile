@@ -1,4 +1,5 @@
-include ../Makefile.header
+
+include ../Makefile.head
 
 _HDA_IMG := $(CURDIR)/$(HDA_IMG)
 _FLP_IMG := $(CURDIR)/$(FLP_IMG)
@@ -28,6 +29,7 @@ hda-mount: hda
 hda-umount:
 ifeq ($(HDA_DIR), $(wildcard $(HDA_DIR)))
 	sudo umount $(HDA_DIR)
+	rm -rf $(HDA_DIR)
 endif
 
 hda-install: hda-mount
@@ -42,6 +44,7 @@ flp-mount: flp
 flp-umount:
 ifeq ($(FLP_DIR), $(wildcard $(FLP_DIR)))
 	sudo umount $(FLP_DIR)
+	rm -rf $(FLP_DIR)
 endif
 
 flp-install: flp-mount
@@ -56,6 +59,7 @@ ramfs-mount: ramfs
 ramfs-umount:
 ifeq ($(RAMFS_DIR), $(wildcard $(RAMFS_DIR)))
 	sudo umount $(RAMFS_DIR)
+	rm -rf $(RAMFS_DIR)
 endif
 
 ramfs-install: ramfs-mount
@@ -63,7 +67,7 @@ ramfs-install: ramfs-mount
 	sync
 	make -s ramfs-umount
 
-clean: ramfs-umount flp-umount hda-umount
+clean:
 	@rm -rf $(HDA_IMG) $(HDA_DIR)
 	@rm -rf $(FLP_IMG) $(FLP_DIR)
 	@rm -rf $(RAM_IMG) $(RAMFS_DIR)

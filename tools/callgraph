@@ -41,7 +41,7 @@ fi
 
 # Input: Function Name [Directory Name]
 func=main
-dir=./
+dir=./src/
 
 # Default depth of the tree
 depth=

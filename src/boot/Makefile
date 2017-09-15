@@ -1,4 +1,4 @@
-include ../Makefile.header
+include ../Makefile.head
 
 LDFLAGS	+= -Ttext 0
 

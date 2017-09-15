@@ -1,5 +1,5 @@
 
-include ../Makefile.header
+include ../Makefile.head
 
 LDFLAGS += -r
 CFLAGS	+= -I../include

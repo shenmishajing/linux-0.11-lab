@@ -6,7 +6,7 @@
 # unless it's something special (ie not a .c file).
 #
 
-include ../Makefile.header
+include ../Makefile.head
 
 LDFLAGS	+= -r
 

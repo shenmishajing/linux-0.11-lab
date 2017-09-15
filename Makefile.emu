@@ -1,36 +1,33 @@
-TOP_DIR = $(CURDIR)
-TOOL_DIR = $(TOP_DIR)/tools/
-
 # Allow to run kernel on different emulators with different prebuilt rootfs
 
 # Rootfs preparation
 hda:
-	@make hda -s -C rootfs
+	@make hda -s -C $(ROOTFS_DIR)
 
 flp:
-	@make flp -s -C rootfs
+	@make flp -s -C $(ROOTFS_DIR)
 
 ramfs:
-	@make ramfs -s -C rootfs
+	@make ramfs -s -C $(ROOTFS_DIR)
 
 hda-install:
-	@make hda-install -s -C rootfs
+	@make hda-install -s -C $(ROOTFS_DIR)
 
 hd-install: hda-install
 
 flp-install:
-	@make flp-install -s -C rootfs
+	@make flp-install -s -C $(ROOTFS_DIR)
 
 fd-install: flp-install
 
 ramfs-install:
-	@make ramfs-install -s -C rootfs
+	@make ramfs-install -s -C $(ROOTFS_DIR)
 
 hda-mount:
-	@make hda-mount -s -C rootfs
+	@make hda-mount -s -C $(ROOTFS_DIR)
 
 hda-umount:
-	@make hda-umount -s -C rootfs
+	@make hda-umount -s -C $(ROOTFS_DIR)
 
 hd-mount: hda-mount
 hd-umount: hda-umount
@@ -41,25 +38,24 @@ ROOT_RAM = 0000
 ROOT_FDB = 021d
 ROOT_HDA = 0301
 
-SETROOTDEV_CMD = $(SETROOTDEV) images/Image
-SETROOTDEV_CMD_RAM = $(SETROOTDEV_CMD) $(ROOT_RAM) rootfs/$(RAM_IMG)
+SETROOTDEV_CMD = $(SETROOTDEV) $(LINUX_IMAGE)
+SETROOTDEV_CMD_RAM = $(SETROOTDEV_CMD) $(ROOT_RAM) $(ROOTFS_DIR)/$(RAM_IMG)
 SETROOTDEV_CMD_FDB = $(SETROOTDEV_CMD) $(ROOT_FDB)
 SETROOTDEV_CMD_HDA = $(SETROOTDEV_CMD) $(ROOT_HDA)
 
-IMAGE ?= images/Image
-QEMU_CMD = $(QEMU) -m 16M -boot a -fda $(IMAGE)
+QEMU_CMD = $(QEMU) -m 16M -boot a -fda $(LINUX_IMAGE)
 ifeq ($(QEMU_PREBUILT),1)
-	QEMU_STATUS = $(shell $(QEMU_PATH)$(QEMU) --help >/dev/null 2>&1; echo $$?)
+	QEMU_STATUS = $(shell $(QEMU_PATH)/$(QEMU) --help >/dev/null 2>&1; echo $$?)
   ifeq ($(QEMU_STATUS), 0)
-	QEMU_CMD := $(QEMU_PATH)$(QEMU_CMD) $(QEMU_OPTS) -L $(QEMU_PATH)
+	QEMU_CMD := $(QEMU_PATH)/$(QEMU_CMD) $(QEMU_OPTS) -L $(QEMU_PATH)
   endif
 endif
-QEMU_CMD_FDB = $(QEMU_CMD) -fdb rootfs/$(FLP_IMG)
-QEMU_CMD_HDA = $(QEMU_CMD) -hda rootfs/$(HDA_IMG)
+QEMU_CMD_FDB = $(QEMU_CMD) -fdb $(ROOTFS_DIR)/$(FLP_IMG)
+QEMU_CMD_HDA = $(QEMU_CMD) -hda $(ROOTFS_DIR)/$(HDA_IMG)
 nullstring :=
 QEMU_DBG = $(nullstring) -s -S #-nographic #-serial '/dev/ttyS0'"
 
-BOCHS_CFG = $(TOOL_DIR)/bochs/bochsrc/
+BOCHS_CFG = $(XTOOL_DIR)/bochs/bochsrc/
 BOCHS_CMD = $(BOCHS) -q -f $(BOCHS_CFG)/bochsrc-fda.bxrc
 BOCHS_CMD_FDB = $(BOCHS) -q -f $(BOCHS_CFG)/bochsrc-fdb.bxrc
 BOCHS_CMD_HDA = $(BOCHS) -q -f $(BOCHS_CFG)/bochsrc-hd.bxrc
@@ -107,9 +103,9 @@ endif
 
 # Running on emulators with differrent rootfs
 
-ramdisk-boot:
+ramdisk-boot: ramfs
 	@# Force init/main.o build with ramdisk support
-	@make -B init/main.o RAMDISK=2048
+	@make -C $(LINUX_SRC) -B init/main.o RAMDISK=2048
 
 boot-hd: start-hd
 boot-fd: start-fd
@@ -117,15 +113,15 @@ boot: start
 _boot: _start
 
 start: ramdisk-boot Image
-	@$(SETROOTDEV_CMD_RAM)
+	$(SETROOTDEV_CMD_RAM)
 	$(VM_CMD)$(VM_DISPLAY)
 
 start-fd: Image flp
-	@$(SETROOTDEV_CMD_FDB)
+	$(SETROOTDEV_CMD_FDB)
 	$(VM_CMD_FDB)$(VM_DISPLAY)
 
 start-hd: Image hda hda-install
-	@$(SETROOTDEV_CMD_HDA)
+	$(SETROOTDEV_CMD_HDA)
 	$(VM_CMD_HDA)$(VM_DISPLAY)
 
 # For any other images
@@ -133,15 +129,14 @@ _start:
 	$(VM_CMD)$(VM_DISPLAY)
 
 # see examples/linux-0.11/README.md
-LINUX_000 ?= $(CURDIR)/rootfs/_hda/usr/root/examples/linux-0.00/Image
+LINUX_000 ?= $(CURDIR)/$(ROOTFS_DIR)/_hda/usr/root/examples/linux-0.00/Image
 linux-0.00:
-	@make -s hda-mount -C rootfs/
-	@sudo make _start IMAGE=$(LINUX_000)
-	@make -s hda-umount -C rootfs/
+	@make -s hda-mount -C $(ROOTFS_DIR)/
+	@sudo make _start LINUX_IMAGE=$(LINUX_000)
+	@make -s hda-umount -C $(ROOTFS_DIR)/
 
 # Debugging the above targets
 
-ELF_SYM ?= $(TOP_DIR)/images/kernel.sym
 GDB_CMD ?= gdb --quiet $(ELF_SYM)
 XTERM_CMD ?= lxterminal --working-directory=$(TOP_DIR) -t "$(GDB_CMD)" -e "$(GDB_CMD)"
 

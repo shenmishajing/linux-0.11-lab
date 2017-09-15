@@ -108,7 +108,8 @@ endif
 
 ramdisk-boot: ramfs
 	@# Force init/main.o build with ramdisk support
-	@make -C $(LINUX_SRC) -B init/main.o RAMDISK=2048
+	@make -C $(LINUX_SRC) -B init/main.o -B kernel/blk_drv/ramdisk.c \
+		RAMDISK_SIZE=$(RAMDISK_SIZE) RAMDISK_START=$(RAMDISK_START)
 
 # Boot with Image and Rootfs from harddisk
 hd-boot: hd-start

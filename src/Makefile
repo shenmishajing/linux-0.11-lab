@@ -1,14 +1,8 @@
-#
-# if you want the ram-disk device, define this to be the
-# size in blocks.
-#
-RAMDISK = # -DRAMDISK=2048
-
 # This is a basic Makefile for setting the general configuration
 include Makefile.head
 
 LDFLAGS	+= -Ttext 0 -e startup_32
-CFLAGS	+= $(RAMDISK) -Iinclude
+CFLAGS	+= -Iinclude
 CPP	+= -Iinclude
 
 #

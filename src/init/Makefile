@@ -4,10 +4,6 @@ LDFLAGS += -r
 CFLAGS	+= -I../include
 CPP	+= -I../include
 
-ifneq ($(RAMDISK),)
-	CFLAGS	+= -DRAMDISK=$(RAMDISK)
-endif
-
 .c.o:
 	@$(CC) $(CFLAGS) \
 	-c -o $*.o $<

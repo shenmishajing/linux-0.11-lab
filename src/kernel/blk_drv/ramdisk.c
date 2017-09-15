@@ -63,6 +63,12 @@ long rd_init(long mem_start, int length)
 	return(length);
 }
 
+#ifdef RAMDISK_START
+#define ramdisk_start RAMDISK_START
+#else
+#define ramdisk_start 256 /* Start at block 256 by default */
+#endif
+
 /*
  * If the root device is the ram disk, try to load it.
  * In order to do this, the root device is originally set to the
@@ -72,7 +78,7 @@ void rd_load(void)
 {
 	struct buffer_head *bh;
 	struct super_block	s;
-	int		block = 256;	/* Start at block 256 */
+	int		block = ramdisk_start;
 	int		i = 1;
 	int		nblocks;
 	char		*cp;		/* Move pointer */

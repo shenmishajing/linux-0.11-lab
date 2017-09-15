@@ -7,6 +7,10 @@ LINUX_IMAGE ?= $(LINUX_SRC)/images/Image
 # src/boot/bootsect.sym, src/boot/setup.sym
 ELF_SYM ?= $(LINUX_SRC)/images/kernel.sym
 
+# Ramdisk start offset and size, in Kb
+RAMDISK_SIZE  ?= 2048
+RAMDISK_START ?= 256
+
 TOOL_DIR := $(TOP_DIR)/tools
 ROOTFS_DIR := $(TOP_DIR)/rootfs
 CALLGRAPH_DIR := $(TOP_DIR)/rootfs
@@ -25,7 +29,7 @@ BOCHS = bochs
 VM_CFG = $(TOOL_DIR)/.vm.cfg
 
 # Tool for specify root device
-SETROOTDEV = $(TOOL_DIR)/setrootdev.sh
+SETROOTDEV = RAMDISK_START=$(RAMDISK_START) $(TOOL_DIR)/setrootdev.sh
 
 # Specify the Rootfs Image file
 HDA_IMG = hdc-0.11.img

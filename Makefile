@@ -3,7 +3,7 @@ include Makefile.head
 all: Image
 
 Image:
-	@make Image -s -C $(LINUX_SRC) 
+	@make Image -s -C $(LINUX_SRC)
 
 clean:
 	@make clean -s -C $(ROOTFS_DIR)

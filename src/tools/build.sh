@@ -27,7 +27,7 @@ kernel_size=`wc -c $kernel | tr -C -d [0-9]`
 sys_size=$((kernel_size + 5*512))
 
 if [ $sys_size -gt $SYS_SIZE ]; then
-    echo "Note: The kernel binary is too big, Please increase RAMDISK_START (>256)"
+    echo "Note: The kernel binary is too big, Please increase RAMDISK_START (=>256, <=400)"
     echo
     echo " e.g."
     echo "     $ make distclean"

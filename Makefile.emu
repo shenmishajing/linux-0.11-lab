@@ -139,7 +139,7 @@ _start:
 	$(VM_CMD)$(VM_DISPLAY)
 
 # see examples/linux-0.11/README.md
-LINUX_000 ?= $(CURDIR)/$(ROOTFS_DIR)/_hda/usr/root/examples/linux-0.00/Image
+LINUX_000 ?= $(ROOTFS_DIR)/_hda/usr/root/examples/linux-0.00/Image
 linux-0.00:
 	@make -s hda-mount -C $(ROOTFS_DIR)/
 	@sudo make _start LINUX_IMAGE=$(LINUX_000)

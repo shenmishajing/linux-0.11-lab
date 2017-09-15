@@ -104,3 +104,24 @@ Guest:
 
     $ make cg func=main
     $ ls callgraph/main.__init_main_c.svg
+
+## Booting both of Image and Rootfs from harddisk
+
+### Compile Linux 0.11 in Guest
+
+Host:
+
+    $ make boot-hd
+
+Guest:
+
+    $ cd examples/linux-0.11/
+    $ make
+    $ cat /etc/config | grep ^boot
+    boot /usr/root/examples/linux-0.11/Image
+
+### Boot everything from harddisk
+
+Host:
+
+    $ make hd-boot

@@ -58,11 +58,33 @@ GDB:
     $ b fork
     $ s
 
-## Installing files to rootfs
+## Transfering files between Host and Guest
+
+### From Host to Guest
+
+Host:
 
     $ cd examples/
     $ <adding new files here>
     $ make hd-install
+
+Guest:
+
+    $ cd /usr/root/
+    $ ls examples/
+
+### From Guest to Host
+
+Guest:
+
+    $ cd /usr/root/
+    $ <adding new files here>
+
+Host:
+
+    $ make hd-mount
+    $ sudo ls rootfs/_hda/usr/root/
+    $ make hd-umount
 
 ## Adding a new syscall
 

@@ -38,7 +38,7 @@ ROOT_RAM = 0000
 ROOT_FDB = 021d
 ROOT_HDA = 0301
 
-SETROOTDEV_CMD = $(Q)$(SETROOTDEV) $(LINUX_IMAGE)
+SETROOTDEV_CMD = $(SETROOTDEV) $(LINUX_IMAGE)
 SETROOTDEV_CMD_RAM = $(SETROOTDEV_CMD) $(ROOT_RAM) $(ROOTFS_DIR)/$(RAM_IMG)
 SETROOTDEV_CMD_FDB = $(SETROOTDEV_CMD) $(ROOT_FDB)
 SETROOTDEV_CMD_HDA = $(SETROOTDEV_CMD) $(ROOT_HDA)
@@ -82,16 +82,16 @@ switch:
 VM=$(shell cat $(VM_CFG) 2>/dev/null)
 
 ifeq ($(VM), bochs)
-        VM_CMD = $(Q)$(BOCHS_CMD)
-        VM_CMD_FDB = $(Q)$(BOCHS_CMD_FDB)
-        VM_CMD_HDA = $(Q)$(BOCHS_CMD_HDA)
-        VM_DBG = $(Q)$(BOCHS_DBG)
+        VM_CMD = $(BOCHS_CMD)
+        VM_CMD_FDB = $(BOCHS_CMD_FDB)
+        VM_CMD_HDA = $(BOCHS_CMD_HDA)
+        VM_DBG = $(BOCHS_DBG)
 else
-        VM_CMD = $(Q)$(QEMU_CMD)
-        VM_CMD_FDB = $(Q)$(QEMU_CMD_FDB)
-        VM_CMD_HDA = $(Q)$(QEMU_CMD_HDA)
-        _VM_CMD_HDA = $(Q)$(_QEMU_CMD_HDA)
-        VM_DBG = $(Q)$(QEMU_DBG)
+        VM_CMD = $(QEMU_CMD)
+        VM_CMD_FDB = $(QEMU_CMD_FDB)
+        VM_CMD_HDA = $(QEMU_CMD_HDA)
+        _VM_CMD_HDA = $(_QEMU_CMD_HDA)
+        VM_DBG = $(QEMU_DBG)
 endif
 
 # Allow to use curses based console via ssh

@@ -148,12 +148,12 @@ linux-0.00:
 
 # Debugging the above targets
 
-GDB_CMD ?= gdb --quiet $(ELF_SYM)
+GDB_CMD ?= gdb --quiet $(DST)
 XTERM_CMD ?= lxterminal --working-directory=$(TOP_DIR) -t "$(GDB_CMD)" -e "$(GDB_CMD)"
 
 gdbinit:
 	@echo "add-auto-load-safe-path $(TOP_DIR)/.gdbinit" > $(HOME)/.gdbinit
-ifeq ($(findstring kernel,$(ELF_SYM)),kernel)
+ifeq ($(findstring kernel,$(DST)),kernel)
 	cp .kernel_gdbinit .gdbinit
 else
 	cp .boot_gdbinit .gdbinit

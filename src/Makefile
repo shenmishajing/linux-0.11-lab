@@ -19,77 +19,77 @@ MATH	=kernel/math/math.a
 LIBS	=lib/lib.a
 
 .c.s:
-	@$(CC) $(CFLAGS) -S -o $*.s $<
+	$(Q)$(CC) $(CFLAGS) -S -o $*.s $<
 .s.o:
-	@$(AS)  -o $*.o $<
+	$(Q)$(AS)  -o $*.o $<
 .c.o:
-	@$(CC) $(CFLAGS) -c -o $*.o $<
+	$(Q)$(CC) $(CFLAGS) -c -o $*.o $<
 
 all:	Image
 
 Image: boot/bootsect boot/setup kernel.sym FORCE
-	@cp -f images/kernel.sym images/kernel.tmp
-	@$(STRIP) images/kernel.tmp
-	@$(OBJCOPY) -O binary -R .note -R .comment images/kernel.tmp images/kernel
-	@$(BUILD) boot/bootsect boot/setup images/kernel images/Image
-	@rm images/kernel.tmp
-	@rm -f images/kernel
-	@sync
+	$(Q)cp -f images/kernel.sym images/kernel.tmp
+	$(Q)$(STRIP) images/kernel.tmp
+	$(Q)$(OBJCOPY) -O binary -R .note -R .comment images/kernel.tmp images/kernel
+	$(Q)$(BUILD) boot/bootsect boot/setup images/kernel images/Image
+	$(Q)rm images/kernel.tmp
+	$(Q)rm -f images/kernel
+	$(Q)sync
 
 init/main.o: FORCE
-	@make main.o -s -C init/
+	$(Q)(cd init; make $(S) main.o)
 
 boot/head.o: boot/head.s FORCE
-	@make head.o -s -C boot/
+	$(Q)(cd boot; make $(S) head.o)
 
 kernel.sym: boot/head.o init/main.o \
-		$(ARCHIVES) $(DRIVERS) $(MATH) $(LIBS)
-	@$(LD) $(LDFLAGS) boot/head.o init/main.o \
+		$(ARCHIVES) $(DRIVERS) $(MATH) $(LIBS) FORCE
+	$(Q)$(LD) $(LDFLAGS) boot/head.o init/main.o \
 	$(ARCHIVES) \
 	$(DRIVERS) \
 	$(MATH) \
 	$(LIBS) \
 	-o images/kernel.sym
-	@nm images/kernel.sym | grep -v '\(compiled\)\|\(\.o$$\)\|\( [aU] \)\|\(\.\.ng$$\)\|\(LASH[RL]DI\)'| sort > images/kernel.map
+	$(Q)nm images/kernel.sym | grep -v '\(compiled\)\|\(\.o$$\)\|\( [aU] \)\|\(\.\.ng$$\)\|\(LASH[RL]DI\)'| sort > images/kernel.map
 
 kernel/math/math.a: FORCE
-	@make -s -C kernel/math
+	$(Q)(cd kernel/math; make $(S))
 
 kernel/blk_drv/blk_drv.a: FORCE
-	@make -s -C kernel/blk_drv
+	$(Q)(cd kernel/blk_drv; make $(S))
 
 kernel/chr_drv/chr_drv.a: FORCE
-	@make -s -C kernel/chr_drv
+	$(Q)(cd kernel/chr_drv; make $(S))
 
 kernel/kernel.o: FORCE
-	@make -s -C kernel
+	$(Q)(cd kernel; make $(S))
 
 mm/mm.o: FORCE
-	@make -s -C mm
+	$(Q)(cd mm; make $(S))
 
 fs/fs.o: FORCE
-	@make -s -C fs
+	$(Q)(cd fs; make $(S))
 
 lib/lib.a: FORCE
-	@make -s -C lib
+	$(Q)(cd lib; make $(S))
 
 boot/setup: boot/setup.s FORCE
-	@make setup -s -C boot
+	$(Q)(cd boot; make $(S))
 
 boot/bootsect: boot/bootsect.s FORCE
-	@make bootsect -s -C boot
+	$(Q)(cd boot; make $(S))
 
 clean:
-	@rm -f images/Image images/kernel.map tmp_make core boot/bootsect boot/setup
-	@rm -f images/kernel.sym boot/*.o typescript* info bochsout.txt
-	@for i in init mm fs kernel lib boot; do make clean -s -C $$i; done
+	$(Q)rm -f images/Image images/kernel.map tmp_make core boot/bootsect boot/setup
+	$(Q)rm -f images/kernel.sym boot/*.o typescript* info bochsout.txt
+	$(Q)for i in init mm fs kernel lib boot; do (cd $$i; make $(S) clean); done
 
 distclean: clean
-	@rm -f tag* cscope* linux-0.11.*
+	$(Q)rm -f tag* cscope* linux-0.11.*
 
 dep:
-	@sed '/\#\#\# Dependencies/q' < Makefile > tmp_make
-	@cp tmp_make Makefile
-	@for i in init fs kernel mm; do make dep -s -C $$i; done
+	$(Q)sed '/\#\#\# Dependencies/q' < Makefile > tmp_make
+	$(Q)cp tmp_make Makefile
+	$(Q)for i in init fs kernel mm; do (cd $$i; make $(S) dep); done
 
 FORCE: ;

@@ -3,15 +3,15 @@ include Makefile.head
 all: Image
 
 Image:
-	@make Image -s -C $(LINUX_SRC)
+	$(Q)(cd $(LINUX_SRC); make $@)
 
 clean:
-	@make clean -s -C $(ROOTFS_DIR)
-	@make clean -s -C $(CALLGRAPH_DIR)
-	@make clean -s -C $(LINUX_SRC)
+	$(Q)(cd $(ROOTFS_DIR); make $@)
+	$(Q)(cd $(CALLGRAPH_DIR); make $@)
+	$(Q)(cd $(LINUX_SRC); make $@)
 
 distclean: clean
-	@make distclean -s -C $(LINUX_SRC)
+	$(Q)(cd $(LINUX_SRC); make $@)
 
 # Test on emulators with different prebuilt rootfs
 include Makefile.emu

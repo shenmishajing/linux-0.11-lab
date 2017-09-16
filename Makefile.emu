@@ -2,32 +2,32 @@
 
 # Rootfs preparation
 hda:
-	@make hda -s -C $(ROOTFS_DIR)
+	$(Q)(cd $(ROOTFS_DIR); make $@)
 
 flp:
-	@make flp -s -C $(ROOTFS_DIR)
+	$(Q)(cd $(ROOTFS_DIR); make $@)
 
 ramfs:
-	@make ramfs -s -C $(ROOTFS_DIR)
+	$(Q)(cd $(ROOTFS_DIR); make $@)
 
 hda-install:
-	@make hda-install -s -C $(ROOTFS_DIR)
+	$(Q)(cd $(ROOTFS_DIR); make $@)
 
 hd-install: hda-install
 
 flp-install:
-	@make flp-install -s -C $(ROOTFS_DIR)
+	$(Q)(cd $(ROOTFS_DIR); make $@)
 
 fd-install: flp-install
 
 ramfs-install:
-	@make ramfs-install -s -C $(ROOTFS_DIR)
+	$(Q)(cd $(ROOTFS_DIR); make $@)
 
 hda-mount:
-	@make hda-mount -s -C $(ROOTFS_DIR)
+	$(Q)(cd $(ROOTFS_DIR); make $@)
 
 hda-umount:
-	@make hda-umount -s -C $(ROOTFS_DIR)
+	$(Q)(cd $(ROOTFS_DIR); make $@)
 
 hd-mount: hda-mount
 hd-umount: hda-umount
@@ -38,7 +38,7 @@ ROOT_RAM = 0000
 ROOT_FDB = 021d
 ROOT_HDA = 0301
 
-SETROOTDEV_CMD = $(SETROOTDEV) $(LINUX_IMAGE)
+SETROOTDEV_CMD = $(Q)$(SETROOTDEV) $(LINUX_IMAGE)
 SETROOTDEV_CMD_RAM = $(SETROOTDEV_CMD) $(ROOT_RAM) $(ROOTFS_DIR)/$(RAM_IMG)
 SETROOTDEV_CMD_FDB = $(SETROOTDEV_CMD) $(ROOT_FDB)
 SETROOTDEV_CMD_HDA = $(SETROOTDEV_CMD) $(ROOT_HDA)
@@ -76,22 +76,22 @@ else
 endif
 
 switch:
-	@echo "Switch to use emulator: $(NEW_VM)"
-	@echo $(NEW_VM) > $(VM_CFG)
+	$(Q)echo "Switch to use emulator: $(NEW_VM)"
+	$(Q)echo $(NEW_VM) > $(VM_CFG)
 
 VM=$(shell cat $(VM_CFG) 2>/dev/null)
 
 ifeq ($(VM), bochs)
-        VM_CMD = $(BOCHS_CMD)
-        VM_CMD_FDB = $(BOCHS_CMD_FDB)
-        VM_CMD_HDA = $(BOCHS_CMD_HDA)
-        VM_DBG = $(BOCHS_DBG)
+        VM_CMD = $(Q)$(BOCHS_CMD)
+        VM_CMD_FDB = $(Q)$(BOCHS_CMD_FDB)
+        VM_CMD_HDA = $(Q)$(BOCHS_CMD_HDA)
+        VM_DBG = $(Q)$(BOCHS_DBG)
 else
-        VM_CMD = $(QEMU_CMD)
-        VM_CMD_FDB = $(QEMU_CMD_FDB)
-        VM_CMD_HDA = $(QEMU_CMD_HDA)
-        _VM_CMD_HDA = $(_QEMU_CMD_HDA)
-        VM_DBG = $(QEMU_DBG)
+        VM_CMD = $(Q)$(QEMU_CMD)
+        VM_CMD_FDB = $(Q)$(QEMU_CMD_FDB)
+        VM_CMD_HDA = $(Q)$(QEMU_CMD_HDA)
+        _VM_CMD_HDA = $(Q)$(_QEMU_CMD_HDA)
+        VM_DBG = $(Q)$(QEMU_DBG)
 endif
 
 # Allow to use curses based console via ssh
@@ -108,8 +108,8 @@ endif
 
 ramdisk-boot: ramfs
 	@# Force init/main.o build with ramdisk support
-	@make -C $(LINUX_SRC) -B init/main.o -B kernel/blk_drv/ramdisk.o \
-		RAMDISK_SIZE=$(RAMDISK_SIZE) RAMDISK_START=$(RAMDISK_START)
+	$(Q)(cd $(LINUX_SRC); make -B init/main.o -B kernel/blk_drv/ramdisk.o \
+		RAMDISK_SIZE=$(RAMDISK_SIZE) RAMDISK_START=$(RAMDISK_START))
 
 # Boot with Image and Rootfs from harddisk
 hd-boot: hd-start
@@ -142,34 +142,34 @@ _start:
 # see examples/linux-0.11/README.md
 LINUX_000 ?= $(ROOTFS_DIR)/_hda/usr/root/examples/linux-0.00/Image
 linux-0.00:
-	@make -s hda-mount -C $(ROOTFS_DIR)/
-	@sudo make _start LINUX_IMAGE=$(LINUX_000)
-	@make -s hda-umount -C $(ROOTFS_DIR)/
+	$(Q)(cd $(ROOTFS_DIR); make hda-mount)
+	$(Q)sudo make _start LINUX_IMAGE=$(LINUX_000)
+	$(Q)(cd $(ROOTFS_DIR); make hda-umount)
 
 # Debugging the above targets
 
 GDB_CMD ?= gdb --quiet $(DST)
-XTERM_CMD ?= lxterminal --working-directory=$(TOP_DIR) -t "$(GDB_CMD)" -e "$(GDB_CMD)"
+XTERM_CMD ?= $(Q)lxterminal --working-directory=$(TOP_DIR) -t "$(GDB_CMD)" -e "$(GDB_CMD)"
 
 gdbinit:
-	@echo "add-auto-load-safe-path $(TOP_DIR)/.gdbinit" > $(HOME)/.gdbinit
+	$(Q)echo "add-auto-load-safe-path $(TOP_DIR)/.gdbinit" > $(HOME)/.gdbinit
 ifeq ($(findstring kernel,$(DST)),kernel)
-	cp .kernel_gdbinit .gdbinit
+	$(Q)cp .kernel_gdbinit .gdbinit
 else
-	cp .boot_gdbinit .gdbinit
+	$(Q)cp .boot_gdbinit .gdbinit
 endif
 
 debug: ramdisk-boot Image gdbinit
-	@$(SETROOTDEV_CMD_RAM)
-	@$(XTERM_CMD) &
+	$(SETROOTDEV_CMD_RAM)
+	$(XTERM_CMD) &
 	$(VM_CMD)$(VM_DBG)$(VM_DISPLAY)
 
 debug-fd: Image flp gdbinit
-	@$(SETROOTDEV_CMD_FDB)
-	@$(XTERM_CMD) &
+	$(SETROOTDEV_CMD_FDB)
+	$(XTERM_CMD) &
 	$(VM_CMD_FDB)$(VM_DBG)$(VM_DISPLAY)
 
 debug-hd: Image hda gdbinit
-	@$(SETROOTDEV_CMD_HDA)
-	@$(XTERM_CMD) &
+	$(SETROOTDEV_CMD_HDA)
+	$(XTERM_CMD) &
 	$(VM_CMD_HDA)$(VM_DBG)$(VM_DISPLAY)

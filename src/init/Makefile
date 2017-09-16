@@ -5,17 +5,16 @@ CFLAGS	+= -I../include
 CPP	+= -I../include
 
 .c.o:
-	@$(CC) $(CFLAGS) \
-	-c -o $*.o $<
+	$(Q)$(CC) $(CFLAGS) -c -o $*.o $<
 
 clean:
-	@rm -f core *.o *.a tmp_make
-	@for i in *.c;do rm -f `basename $$i .c`.s;done
+	$(Q)rm -f core *.o *.a tmp_make
+	$(Q)for i in *.c;do rm -f `basename $$i .c`.s;done
 
 dep:
-	@sed '/\#\#\# Dependencies/q' < Makefile > tmp_make
-	@(for i in *.c;do $(CPP) -M $$i;done) >> tmp_make
-	@cp tmp_make Makefile
+	$(Q)sed '/\#\#\# Dependencies/q' < Makefile > tmp_make
+	$(Q)(for i in *.c;do $(CPP) -M $$i;done) >> tmp_make
+	$(Q)cp tmp_make Makefile
 
 ### Dependencies:
 main.o: main.c ../include/unistd.h ../include/sys/stat.h \

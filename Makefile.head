@@ -2,6 +2,15 @@
 OS := $(shell uname)
 TOP_DIR := $(CURDIR)
 
+ifeq ($V, 1)
+    Q =
+    S =
+    export V Q S
+else
+    S = -s
+    Q = @
+endif
+
 LINUX_SRC := $(TOP_DIR)/src
 LINUX_IMAGE ?= $(LINUX_SRC)/images/Image
 # src/boot/bootsect.sym, src/boot/setup.sym

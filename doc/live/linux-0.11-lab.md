@@ -58,6 +58,12 @@ GDB:
     $ b fork
     $ s
 
+
+If want to debug `src/boot/bootsect.sym` or `src/boot/setup.sym`, please pass a
+DST variable:
+
+    $ make debug DST=src/boot/bootsect.sym
+
 ## Transfering files between Host and Guest
 
 ### From Host to Guest

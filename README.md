@@ -82,7 +82,7 @@ If you want to learn the latest [Linux Kernel](http://www.kernel.org), please tr
 
     // edit .kernel_gdbinit(for kernel.sym) and .boot_gdbinit(for bootsect.sym and setup.sym) before debugging
 
-    $ make debug-hd	// debug images/kernel.sym via qemu and start gdb automatically to connect it.
+    $ make debug-hd	// debug kernel.sym via qemu and start gdb automatically to connect it.
     $ make debug-hd DST=boot/bootsect.sym  // debug bootsect, can not debug code after ljmp
     $ make debug-hd DST=boot/setup.sym     // debug setup, can not debug after ljmp
 

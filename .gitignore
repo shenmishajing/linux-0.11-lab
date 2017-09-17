@@ -11,3 +11,7 @@ bochsout.txt
 *.orig
 *.rej
 .gdbinit
+Image
+kernel.bin
+kernel.sym
+kernel.map

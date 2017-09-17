@@ -13,9 +13,9 @@ endif
 export V Q S
 
 LINUX_SRC := $(TOP_DIR)/src
-LINUX_IMAGE ?= $(LINUX_SRC)/images/Image
+LINUX_IMAGE ?= $(LINUX_SRC)/Image
 # src/boot/bootsect.sym, src/boot/setup.sym
-DST ?= $(if $(LINUX_DST), $(LINUX_DST), $(LINUX_SRC)/images/kernel.sym)
+DST ?= $(if $(LINUX_DST), $(LINUX_DST), $(LINUX_SRC)/kernel.sym)
 
 # Ramdisk start offset and size, in Kb
 RAMDISK_SIZE  ?= 2048

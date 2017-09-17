@@ -11,7 +11,7 @@ ifeq ($(f),)
   f = main
 endif
 ifeq ($(d),)
-  d = ./
+  d = ./src
 endif
 
 ifeq ($(b),)

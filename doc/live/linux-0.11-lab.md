@@ -2,7 +2,7 @@
 # ** Learning Linux 0.11 in Linux 0.11 Lab **
 
 - Author: Wu Zhangjin / Falcon
-- Time  : 2017/09/16 14:00 ~ 15:00
+- Time  : 2017/09/23 14:00 ~ 15:00
 - Doc   :
     + <https://github.com/tinyclub/linux-0.11-lab>
     + <http://tinylab.org/linux-0.11-lab>

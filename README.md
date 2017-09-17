@@ -73,7 +73,7 @@ If you want to learn the latest [Linux Kernel](http://www.kernel.org), please tr
     $ make help		// get help
     $ make  		// compile
     $ make boot-hd	// boot it on qemu with hard disk image
-    $ make boot-hd G=0 // Use curses based terminal instead of graphics, friendly for ssh login, exit with 'ESC+2'
+    $ make boot-hd G=0  // Use curses based terminal instead of graphics, friendly for ssh login, exit with 'ESC+2'
     $ QEMU_PREBUILT=0 make boot-hd // Don't use prebuilt qemu. latest qemu only boot with hd rootfs
 
     $ make switch                // switch to another emulator, between qemu and bochs
@@ -83,8 +83,8 @@ If you want to learn the latest [Linux Kernel](http://www.kernel.org), please tr
     // edit .kernel_gdbinit(for kernel.sym) and .boot_gdbinit(for bootsect.sym and setup.sym) before debugging
 
     $ make debug-hd	// debug images/kernel.sym via qemu and start gdb automatically to connect it.
-    $ make debug-hd DST=boot/bootsect.sym  // debug bootsect, step one instruction
-    $ make debug-hd DST=boot/setup.sym     // debug setup, similar as above
+    $ make debug-hd DST=boot/bootsect.sym  // debug bootsect, can not debug code after ljmp
+    $ make debug-hd DST=boot/setup.sym     // debug setup, can not debug after ljmp
 
 ## Build on Mac OS X
 

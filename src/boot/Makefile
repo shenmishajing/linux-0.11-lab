@@ -1,6 +1,6 @@
 include ../Makefile.head
 
-LDFLAGS	+= -Ttext 0
+LDFLAGS	+= -Ttext 0 -e _start
 
 all: bootsect setup
 

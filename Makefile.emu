@@ -14,14 +14,18 @@ hda-install:
 	$(Q)(cd $(ROOTFS_DIR); make $@)
 
 hd-install: hda-install
+install-hd: hd-install
 
 flp-install:
 	$(Q)(cd $(ROOTFS_DIR); make $@)
 
 fd-install: flp-install
+install-fd: fd-install
 
 ramfs-install:
 	$(Q)(cd $(ROOTFS_DIR); make $@)
+
+install-ramfs: ramfs-install
 
 hda-mount:
 	$(Q)(cd $(ROOTFS_DIR); make $@)
@@ -30,7 +34,30 @@ hda-umount:
 	$(Q)(cd $(ROOTFS_DIR); make $@)
 
 hd-mount: hda-mount
+mount-hd: hd-mount
 hd-umount: hda-umount
+umount-hd: hd-umount
+
+flp-mount:
+	$(Q)(cd $(ROOTFS_DIR); make $@)
+
+flp-umount:
+	$(Q)(cd $(ROOTFS_DIR); make $@)
+
+fd-mount: flp-mount
+mount-fd: fd-mount
+fd-umount: flp-umount
+umount-fd: fd-umount
+
+ramfs-mount:
+	$(Q)(cd $(ROOTFS_DIR); make $@)
+
+ramfs-umount:
+	$(Q)(cd $(ROOTFS_DIR); make $@)
+
+
+mount-ramfs: ramfs-mount
+umount-ramfs: ramfs-umount
 
 # VM (Qemu/Bochs) Setting for different rootfs
 

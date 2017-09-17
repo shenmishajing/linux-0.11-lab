@@ -7,9 +7,11 @@ ifeq ($V, 1)
   Q =
   S =
 else
-  S = -s
-  Q = @
+  S ?= -s
+  Q ?= @
 endif
+
+export V S Q
 
 #
 # if you want the ram-disk device, define this to be the

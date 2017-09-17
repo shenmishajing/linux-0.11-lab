@@ -3,13 +3,14 @@ OS := $(shell uname)
 TOP_DIR := $(CURDIR)
 
 ifeq ($V, 1)
-    Q =
-    S =
-    export V Q S
+  Q =
+  S =
 else
-    S = -s
-    Q = @
+  S ?= -s
+  Q ?= @
 endif
+
+export V Q S
 
 LINUX_SRC := $(TOP_DIR)/src
 LINUX_IMAGE ?= $(LINUX_SRC)/images/Image

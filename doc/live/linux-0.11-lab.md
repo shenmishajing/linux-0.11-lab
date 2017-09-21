@@ -32,6 +32,7 @@
 
 1. Compiling
     - `make`
+    - `make V=1`
 
 2. Booting
     - `make boot`

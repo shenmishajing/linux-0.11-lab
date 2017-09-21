@@ -7,20 +7,14 @@
 # d: directory or file
 # b: callgraph picture displayer
 
-ifeq ($(f),)
-  f = main
-endif
-ifeq ($(d),)
-  d = ./src
-endif
+f ?= main
+d ?= ./src
 
-ifeq ($(b),)
-  # Mac OS X
-  ifeq ($(OS), Darwin)
-    b = /Applications/Safari.app/Contents/MacOS/Safari
-  else
-    b = chromium-browser
-  endif
+# Mac OS X
+ifeq ($(OS), Darwin)
+  b ?= /Applications/Safari.app/Contents/MacOS/Safari
+else
+  b ?= chromium-browser
 endif
 
 cg:

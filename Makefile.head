@@ -23,7 +23,7 @@ RAMDISK_START ?= 256
 
 TOOL_DIR := $(TOP_DIR)/tools
 ROOTFS_DIR := $(TOP_DIR)/rootfs
-CALLGRAPH_DIR := $(TOP_DIR)/rootfs
+CALLGRAPH_DIR := $(TOP_DIR)/callgraph
 
 # Qemu
 QEMU_PATH =

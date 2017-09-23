@@ -9,6 +9,7 @@ clean:
 	$(Q)(cd $(ROOTFS_DIR); make $@)
 	$(Q)(cd $(CALLGRAPH_DIR); make $@)
 	$(Q)(cd $(LINUX_SRC); make $@)
+	$(Q)rm bochsout.txt
 
 distclean: clean
 	$(Q)(cd $(LINUX_SRC); make $@)

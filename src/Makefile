@@ -31,7 +31,7 @@ Image: boot/bootsect boot/setup kernel_sym FORCE
 	$(Q)cp -f kernel.sym kernel.tmp
 	$(Q)$(STRIP) kernel.tmp
 	$(Q)$(OBJCOPY) -O binary -R .note -R .comment kernel.tmp kernel.bin
-	$(Q)$(BUILD) boot/bootsect boot/setup kernel.bin Image
+	$(BUILD) boot/bootsect boot/setup kernel.bin Image
 	$(Q)rm kernel.tmp
 	$(Q)rm -f kernel.bin
 	$(Q)sync

@@ -1,7 +1,6 @@
 
 OS := $(shell uname)
-TOP_DIR := $(CURDIR)
-TOOL_DIR := $(TOP_DIR)/tools/
+TOOL_DIR := tools
 
 ifeq ($V, 1)
   Q =

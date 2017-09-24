@@ -1,6 +1,5 @@
 
 OS := $(shell uname)
-TOP_DIR := $(CURDIR)
 
 ifeq ($V, 1)
   Q =
@@ -12,7 +11,7 @@ endif
 
 export V Q S
 
-LINUX_SRC := $(TOP_DIR)/src
+LINUX_SRC := src
 LINUX_IMAGE ?= $(LINUX_SRC)/Image
 # src/boot/bootsect.sym, src/boot/setup.sym
 DST ?= $(if $(LINUX_DST), $(LINUX_DST), $(LINUX_SRC)/kernel.sym)
@@ -21,9 +20,9 @@ DST ?= $(if $(LINUX_DST), $(LINUX_DST), $(LINUX_SRC)/kernel.sym)
 RAMDISK_SIZE  ?= 2048
 RAMDISK_START ?= 256
 
-TOOL_DIR := $(TOP_DIR)/tools
-ROOTFS_DIR := $(TOP_DIR)/rootfs
-CALLGRAPH_DIR := $(TOP_DIR)/callgraph
+TOOL_DIR := tools
+ROOTFS_DIR := rootfs
+CALLGRAPH_DIR := callgraph
 
 # Qemu
 QEMU_PATH =

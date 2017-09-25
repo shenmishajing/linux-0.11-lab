@@ -21,10 +21,14 @@ Usage: <http://bochs.sf.net/doc/docbook/user/internal-debugger.html>
 
 ## Compile it with gdbstub support
 
+`tools/bochs/bochs` is compiled as following:
+
     $ ./configure --enable-all-optimizations --enable-disasm --enable-gdb-stub
     $ make
 
 ## Compile it with debugger support
+
+`tools/bochs/bochs-debugger` is compiled as following:
 
     $ export LIBS=-lpthread CFLAGS=`pkg-config gtk+-2.0 --cflags --libs`
     $ ./configure --enable-all-optimizations --enable-disasm --enable-debugger --enable-x86-debugger

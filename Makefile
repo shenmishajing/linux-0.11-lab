@@ -49,6 +49,8 @@ help:
 	@echo "     make debug DST=boot/bootsect.sym -- debug bootsect"
 	@echo "     make debug DST=boot/setup.sym    -- debug setup"
 	@echo ""
+	@echo "     make boot BOCHS=bochs-debugger VM=bochs -- debug with bochs internal debugger"
+	@echo ""
 	@echo "     make switch             -- switch the emulator: qemu and bochs"
 	@echo "     make boot VM=qemu|bochs -- switch the emulator: qemu and bochs"
 	@echo ""

@@ -81,6 +81,14 @@ ifeq ($(QEMU_PREBUILT),1)
   endif
 endif
 
+_BOCHS_CMD = $(BOCHS)
+ifeq ($(BOCHS_PREBUILT),1)
+  BOCHS_STATUS = $(shell $(BOCHS_PATH)/$(BOCHS) --help >/dev/null 2>&1; echo $$?)
+  ifeq ($(BOCHS_STATUS), 0)
+    _BOCHS_CMD := $(BOCHS_PATH)/$(BOCHS)
+  endif
+endif
+
 _QEMU_CMD += $(_QEMU_OPTS)
 QEMU_CMD += $(QEMU_OPTS)
 
@@ -91,9 +99,9 @@ nullstring :=
 QEMU_DBG = $(nullstring) -s -S #-nographic #-serial '/dev/ttyS0'"
 
 BOCHS_CFG = $(TOOL_DIR)/bochs/bochsrc
-BOCHS_CMD = $(BOCHS) -q -f $(BOCHS_CFG)/bochsrc-fda.bxrc
-BOCHS_CMD_FDB = $(BOCHS) -q -f $(BOCHS_CFG)/bochsrc-fdb.bxrc
-BOCHS_CMD_HDA = $(BOCHS) -q -f $(BOCHS_CFG)/bochsrc-hd.bxrc
+BOCHS_CMD = $(_BOCHS_CMD) -q -f $(BOCHS_CFG)/bochsrc-fda.bxrc
+BOCHS_CMD_FDB = $(_BOCHS_CMD) -q -f $(BOCHS_CFG)/bochsrc-fdb.bxrc
+BOCHS_CMD_HDA = $(_BOCHS_CMD) -q -f $(BOCHS_CFG)/bochsrc-hd.bxrc
 BOCHS_DBG = .dbg
 
 ifneq ($(VM),)

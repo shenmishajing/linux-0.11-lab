@@ -73,7 +73,7 @@ DST variable:
     $ cat src/kernel.map | grep time_init
     0000651e t time_init
 
-    $ make boot-hd BOCHS=tools/bochs/bochs-debugger
+    $ make boot-hd BOCHS=bochs-debugger
     Next at t=0
     (0) [0x0000fffffff0] f000:fff0 (unk. ctxt): jmp far f000:e05b         ; ea5be000f0
     <bochs:1> help

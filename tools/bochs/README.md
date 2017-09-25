@@ -7,6 +7,8 @@ In ubuntu 14.04, bochs 2.6.2 is tested.
 
     $ sudo apt-get install xorg-dev libgtk2.0-dev
 
+Usage: <http://bochs.sf.net/doc/docbook/user/internal-debugger.html>
+
 ## Download bochs
 
 * Homepage: <https://bochs.sourceforge.net>.

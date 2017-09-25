@@ -33,7 +33,8 @@ QEMU ?= qemu-system-i386
 MEM  ?= 16M
 
 # Bochs
-BOCHS = bochs
+#BOCHS ?= tools/bochs/bochs-debugger
+BOCHS ?= tools/bochs/bochs-gdbstub
 
 # VM configuration
 VM_CFG = $(TOOL_DIR)/.vm.cfg

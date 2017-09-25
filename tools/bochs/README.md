@@ -1,6 +1,29 @@
-If want to compile the bochs yourself, please make sure:
 
-- Compile it with gdbstub support:
+# Compiling bochs
 
-        $ cd bochs-x.x.x
-        $ ./configure --enable-plugins --enable-disasm --enable-gdb-stub
+## Introduction
+
+In ubuntu 14.04, bochs 2.6.2 is tested.
+
+    $ sudo apt-get install xorg-dev libgtk2.0-dev
+
+## Download bochs
+
+* Homepage: <https://bochs.sourceforge.net>.
+* Download: <https://sf.net/projects/bochs/files/bochs/>
+
+## Decompress bochs
+
+    $ tar zxf bochs-2.6.2.tar.gz
+    $ cd bochs-2.6.2
+
+## Compile it with gdbstub support
+
+    $ ./configure --enable-all-optimizations --enable-disasm --enable-gdb-stub
+    $ make
+
+## Compile it with debugger support
+
+    $ export LIBS=-lpthread CFLAGS=`pkg-config gtk+-2.0 --cflags --libs`
+    $ ./configure --enable-all-optimizations --enable-disasm --enable-debugger --enable-x86-debugger
+    $ make

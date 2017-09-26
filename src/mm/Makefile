@@ -8,7 +8,7 @@ CPP	+= -I../include
 .c.o:
 	$(Q)$(CC) $(CFLAGS) -c -o $*.o $<
 .s.o:
-	$(Q)$(AS) -o $*.o $<
+	$(Q)$(AS) $(AFLAGS) -o $*.o $<
 .c.s:
 	$(Q)$(CC) $(CFLAGS) -S -o $*.s $<
 

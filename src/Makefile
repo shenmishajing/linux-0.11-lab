@@ -21,7 +21,7 @@ LIBS	=lib/lib.a
 .c.s:
 	$(Q)$(CC) $(CFLAGS) -S -o $*.s $<
 .s.o:
-	$(Q)$(AS)  -o $*.o $<
+	$(Q)$(AS) $(AFLAGS) -o $*.o $<
 .c.o:
 	$(Q)$(CC) $(CFLAGS) -c -o $*.o $<
 

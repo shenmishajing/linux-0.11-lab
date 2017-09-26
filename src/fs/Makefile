@@ -9,7 +9,7 @@ CPP	+= -I../include
 .c.o:
 	$(Q)$(CC) $(CFLAGS) -c -o $*.o $<
 .s.o:
-	$(AS) -o $*.o $<
+	$(Q)$(AS) $(AFLAGS) -o $*.o $<
 
 OBJS=	open.o read_write.o inode.o file_table.o buffer.o super.o \
 	block_dev.o char_dev.o file_dev.o stat.o exec.o pipe.o namei.o \

@@ -27,12 +27,8 @@ LIBS	=lib/lib.a
 
 all:	Image
 
-Image: boot/bootsect boot/setup kernel_sym FORCE
-	$(Q)cp -f kernel.sym kernel.tmp
-	$(Q)$(STRIP) kernel.tmp
-	$(Q)$(OBJCOPY) -O binary -R .note -R .comment kernel.tmp kernel.bin
+Image: boot/bootsect boot/setup kernel.bin FORCE
 	$(BUILD) boot/bootsect boot/setup kernel.bin Image
-	$(Q)rm kernel.tmp
 	$(Q)rm -f kernel.bin
 	$(Q)sync
 
@@ -42,7 +38,13 @@ init/main.o: FORCE
 boot/head.o: boot/head.s FORCE
 	$(Q)(cd boot; make $(S) head.o)
 
-kernel_sym: boot/head.o init/main.o \
+kernel.bin: kernel.sym
+	$(Q)cp -f kernel.sym kernel.tmp
+	$(Q)$(STRIP) kernel.tmp
+	$(Q)$(OBJCOPY) -O binary -R .note -R .comment kernel.tmp kernel.bin
+	$(Q)rm kernel.tmp
+
+kernel.sym: boot/head.o init/main.o \
 		$(ARCHIVES) $(DRIVERS) $(MATH) $(LIBS) FORCE
 	$(Q)$(LD) $(LDFLAGS) boot/head.o init/main.o \
 	$(ARCHIVES) \
@@ -76,7 +78,7 @@ lib/lib.a: FORCE
 boot/setup: boot/setup.s FORCE
 	$(Q)(cd boot; make $(S))
 
-boot/bootsect: boot/bootsect.s FORCE
+boot/bootsect: boot/bootsect.s kernel.bin FORCE
 	$(Q)(cd boot; make $(S))
 
 clean:

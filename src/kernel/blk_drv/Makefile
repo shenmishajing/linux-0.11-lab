@@ -11,6 +11,10 @@ include ../../Makefile.head
 CFLAGS	+= -I../../include
 CPP	+= -I../../include
 
+ifneq ($(RAMDISK_START),)
+  CFLAGS += -DRAMDISK_START=$(RAMDISK_START)
+endif
+
 .c.s:
 	$(Q)$(CC) $(CFLAGS) -S -o $*.s $<
 .s.o:

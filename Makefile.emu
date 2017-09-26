@@ -146,11 +146,11 @@ ifeq ($(G),0)
 endif
 
 # Running on emulators with differrent rootfs
-
 ramdisk-boot: ramfs
 	@# Force init/main.o build with ramdisk support
-	$(Q)(cd $(LINUX_SRC); make -B init/main.o -B kernel/blk_drv/ramdisk.o \
-		RAMDISK_SIZE=$(RAMDISK_SIZE) RAMDISK_START=$(RAMDISK_START))
+	$(Q)(cd $(LINUX_SRC); make -B init/main.o \
+	RAMDISK_SIZE=$(shell wc -c $(ROOTFS_DIR)/$(RAM_IMG) | tr -C -d '[0-9]' | xargs -i echo {}/1024 + 1 | bc))
+	$(Q)(cd $(LINUX_SRC); make -B kernel/blk_drv/blk_drv.a RAMDISK_START=$(RAMDISK_START))
 
 # Boot with Image and Rootfs from harddisk
 hd-boot: hd-start

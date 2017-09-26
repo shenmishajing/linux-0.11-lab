@@ -5,7 +5,7 @@
 # 0x3000 is 0x30000 bytes = 196kB, more than enough for current
 # versions of linux
 #
-	.equ SYSSIZE, 0x3000
+	.equ SYSSIZE, SYS_SIZE
 #
 #	bootsect.s		(C) 1991 Linus Torvalds
 #

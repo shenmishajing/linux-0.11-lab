@@ -4,6 +4,10 @@ LDFLAGS += -r
 CFLAGS	+= -I../include
 CPP	+= -I../include
 
+ifneq ($(RAMDISK_SIZE),)
+  CFLAGS += -DRAMDISK_SIZE=$(RAMDISK_SIZE)
+endif
+
 .c.o:
 	$(Q)$(CC) $(CFLAGS) -c -o $*.o $<
 

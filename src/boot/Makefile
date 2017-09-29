@@ -7,7 +7,7 @@ KERNEL_SIZE = $(shell wc -c ../kernel.bin | tr -C -d '[0-9]')
 
 all: bootsect setup
 
-bootsect: bootsect.s
+bootsect: bootsect.s ../kernel.bin
 	$(Q)$(AS) $(AFLAGS) -o bootsect.o bootsect.s --defsym SYS_SIZE=$(SYS_SIZE)
 	$(Q)$(LD) $(LDFLAGS) -o bootsect bootsect.o
 	$(Q)cp -f bootsect bootsect.sym

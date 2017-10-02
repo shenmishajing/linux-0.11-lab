@@ -190,7 +190,7 @@ linux-0.00:
 # Debugging the above targets
 
 GDB_CMD ?= gdb --quiet $(DST)
-XTERM_CMD ?= $(Q)lxterminal --working-directory=$(CURDIR) -t "$(GDB_CMD)" -e "$(GDB_CMD)"
+XTERM_CMD ?= $(Q)$(XTERM) --working-directory=$(CURDIR) -T "$(GDB_CMD)" -e "$(GDB_CMD)"
 
 gdbinit:
 	$(Q)echo "add-auto-load-safe-path .gdbinit" > $(HOME)/.gdbinit

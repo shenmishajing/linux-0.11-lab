@@ -20,6 +20,9 @@ TOOL_DIR := tools
 ROOTFS_DIR := rootfs
 CALLGRAPH_DIR := callgraph
 
+# Xterminal: lxterminal, terminator ...
+XTERM ?= lxterminal
+
 # Qemu
 QEMU_PATH =
 QEMU_PREBUILT ?= 1

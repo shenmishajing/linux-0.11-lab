@@ -62,8 +62,8 @@ If you want to learn the latest [Linux Kernel](http://www.kernel.org), please tr
 
 * Optional
 
-    $ sudo apt-get install bochs vgabios bochsbios bochs-doc bochs-x libltdl7 bochs-sdl bochs-term
-    $ sudo apt-get install graphviz cflow
+        $ sudo apt-get install bochs vgabios bochsbios bochs-doc bochs-x libltdl7 bochs-sdl bochs-term
+        $ sudo apt-get install graphviz cflow
 
 **Note**: The [docker install method](#build-on-other-systems-include-mac-os-x-windows) is recommended in lastest Ubuntu distibutions.
 

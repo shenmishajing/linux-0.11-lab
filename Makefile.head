@@ -22,6 +22,7 @@ CALLGRAPH_DIR := callgraph
 
 # Xterminal: lxterminal, terminator ...
 XTERM ?= lxterminal
+  GDB ?= gdb
 
 # Qemu
 QEMU_PATH =
@@ -60,11 +61,15 @@ _QEMU_OPTS = -m $(MEM) -boot c
 QEMU_OPTS  = -m $(MEM) -boot a -fda $(LINUX_IMAGE)
 
 ifeq ($(OS), Linux)
-ifeq ($(QEMU_PREBUILT), 1)
-  QEMU_PATH = $(QEMU_PREBUILT_PATH)
-  QEMU_XOPTS = -no-kqemu -L $(QEMU_PATH)
+  ifeq ($(QEMU_PREBUILT), 1)
+    QEMU_PATH = $(QEMU_PREBUILT_PATH)
+    QEMU_XOPTS = -no-kqemu -L $(QEMU_PATH)
+  endif
+  ifeq ($(BOCHS_PREBUILT), 1)
+    BOCHS_PATH = $(BOCHS_PREBUILT_PATH)
+  endif
 endif
-ifeq ($(BOCHS_PREBUILT), 1)
-  BOCHS_PATH = $(BOCHS_PREBUILT_PATH)
-endif
+
+ifeq ($(OS), Darwin)
+  GDB := tools/mac/gdb
 endif

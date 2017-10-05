@@ -55,7 +55,7 @@ If you want to learn the latest [Linux Kernel](http://www.kernel.org), please tr
 
 ### Linux Setup
 
-**Note**: The [docker install method](#build-on-other-systems-include-mac-os-x-windows) is also recommended in Linux distibutions.
+The [docker install method](#build-on-other-systems-include-mac-os-x-windows) is also recommended in Linux distibutions.
 
 * The Linux distributions: debian and ubuntu (>= 14.04) are recommended
 * Install basic tools
@@ -147,7 +147,7 @@ Dockerfile, we can simply build a Linux 0.11 Lab on every system.
 
 - Install Docker Toolbox and boot into it
 
-    please follow [Docker Toolbox Installation](https://www.docker.com/docker-toolbox).
+    please follow [Docker Toolbox Installation](https://www.docker.com/docker-toolbox) or [Docker CE](https://store.docker.com/search?type=edition&offering=community).
 
 - Build and Start the service
 

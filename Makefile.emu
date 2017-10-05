@@ -196,7 +196,7 @@ XTERM_STATUS = $(shell $(XTERM) --help >/dev/null 2>&1; echo $$?)
 ifeq ($(XTERM_STATUS), 0)
   DEBUG_CMD = $(XTERM_CMD)
 else
-  DEBUG_CMD = $(Q)echo "\nLOG: Please run this in another terminal:\n\n    " $(GDB_CMD)
+  DEBUG_CMD = $(Q)echo "\nLOG: Please run this in another terminal:\n\n    " $(GDB_CMD) "\n"
 endif
 
 gdbinit:

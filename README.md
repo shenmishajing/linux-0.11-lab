@@ -44,7 +44,7 @@ If you want to learn the latest [Linux Kernel](http://www.kernel.org), please tr
 
 - Features
     - compilable with many different versions of Gcc.
-    - has been tested under modern Linux, Mac OS X.
+    - has been tested under modern Linux, Mac OS X and even work on Windows with Docker Toolbox.
     - add bulit-in qemu and bochs support, include running and debugging.
     - integrate different prebuilt rootfs (floopy, ramdisk and harddisk).
     - allow to generate callgraph of every specified function
@@ -55,7 +55,9 @@ If you want to learn the latest [Linux Kernel](http://www.kernel.org), please tr
 
 ### Linux Setup
 
-The [docker install method](#build-on-other-systems-include-mac-os-x-windows) is also recommended in Linux distibutions.
+The [docker install method](#build-on-other-systems-include-mac-os-x-windows) is recommended for all systems, including Linux, Windows and Mac OS.
+
+Here is the deprecated method:
 
 * The Linux distributions: debian and ubuntu (>= 14.04) are recommended
 * Install basic tools
@@ -88,7 +90,7 @@ The [docker install method](#build-on-other-systems-include-mac-os-x-windows) is
 
 ## Build on Mac OS X
 
-**Note**: A simpler method is use Docker Toolbox with our Dockerfile, see [Build on the other systems](#build-on-other-systems-include-mac-os-x-windows)
+**Note**: A simpler method is using Docker Toolbox with our Dockerfile, see [Build on the other systems](#build-on-other-systems-include-mac-os-x-windows)
 
 ### Mac OS X Setup
 
@@ -147,7 +149,8 @@ Dockerfile, we can simply build a Linux 0.11 Lab on every system.
 
 - Install Docker Toolbox and boot into it
 
-    please follow [Docker Toolbox Installation](https://www.docker.com/docker-toolbox) or [Docker CE](https://store.docker.com/search?type=edition&offering=community).
+    - Windows or Mac OS: [Docker Toolbox Installation](https://www.docker.com/docker-toolbox)
+    - Linux: [Docker CE](https://store.docker.com/search?type=edition&offering=community)
 
 - Build and Start the service
 

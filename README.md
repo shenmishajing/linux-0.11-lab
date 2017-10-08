@@ -149,8 +149,8 @@ Dockerfile, we can simply build a Linux 0.11 Lab on every system.
 
 - Install Docker Toolbox and boot into it
 
-    - Windows or Mac OS: [Docker Toolbox Installation](https://www.docker.com/docker-toolbox)
-    - Linux: [Docker CE](https://store.docker.com/search?type=edition&offering=community)
+    - Linux and Mac OSX: [Docker CE](https://store.docker.com/search?type=edition&offering=community)
+    - Windows: [Docker Toolbox Installation](https://www.docker.com/docker-toolbox)
 
 - Build and Start the service
 

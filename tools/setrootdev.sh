@@ -19,7 +19,7 @@ fi
 # Set "device" for the root image file
 echo -ne "\x$DEFAULT_MINOR_ROOT\x$DEFAULT_MAJOR_ROOT" | dd ibs=1 obs=1 count=2 seek=508 of=$image conv=notrunc >/dev/null 2>&1
 
-# Write Ramdisk RootFS
+# Write Ramdisk RootFS, block size defined in src/include/linux/fs.h, see BLOCK_SIZE
 if [ -n "$ram_img" -a -f "$ram_img" ]; then
   dd if=$ram_img seek=$RAMDISK_START bs=1024 of=$image conv=notrunc >/dev/null 2>&1
 fi

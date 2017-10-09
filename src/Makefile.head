@@ -17,7 +17,7 @@ export V Q S
 # size in blocks.
 #
 
-RAMDISK_START ?= 260
+RAMDISK_START ?= 256
 
 # Tool for Image building
 BUILD = RAMDISK_START=$(RAMDISK_START) $(TOOL_DIR)/build.sh

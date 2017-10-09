@@ -66,7 +66,7 @@ long rd_init(long mem_start, int length)
 #ifdef RAMDISK_START
 #define ramdisk_start RAMDISK_START
 #else
-#define ramdisk_start 260 /* Start at block 260 by default */
+#define ramdisk_start 256 /* Start at block 256 by default */
 #endif
 
 /*

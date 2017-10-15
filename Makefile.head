@@ -11,7 +11,8 @@ endif
 
 export V Q S
 
-LINUX_SRC := 0.11
+LINUX_VERSION ?= 0.11
+LINUX_SRC     := src
 LINUX_IMAGE ?= $(LINUX_SRC)/Image
 # src/boot/bootsect.sym, src/boot/setup.sym
 DST ?= $(if $(LINUX_DST), $(LINUX_DST), $(LINUX_SRC)/kernel.sym)

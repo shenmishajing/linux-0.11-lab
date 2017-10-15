@@ -2,7 +2,9 @@ include Makefile.head
 
 all: Image
 
-Image:
+Image: $(LINUX_VERSION)
+	$(Q)rm -f $(LINUX_SRC)
+	$(Q)ln -sf $(LINUX_VERSION) $(LINUX_SRC)
 	$(Q)(cd $(LINUX_SRC); make $@)
 
 clean:

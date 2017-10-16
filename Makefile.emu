@@ -146,7 +146,7 @@ ifeq ($(G),0)
 endif
 
 # Running on emulators with differrent rootfs
-ramdisk-boot: ramfs
+ramdisk-boot: ramfs $(LINUX_SRC)
 	@# Force init/main.o build with ramdisk support
 	$(Q)(cd $(LINUX_SRC); make -B init/main.o \
 	RAMDISK_SIZE=$(shell wc -c $(ROOTFS_DIR)/$(RAM_IMG) | tr -C -d '[0-9]' | xargs -i echo {}/1024 + 1 | bc))

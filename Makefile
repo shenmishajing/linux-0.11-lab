@@ -2,12 +2,14 @@ include Makefile.head
 
 all: Image
 
-Image: $(LINUX_VERSION)
-	$(Q)rm -f $(LINUX_SRC)
-	$(Q)ln -sf $(LINUX_VERSION) $(LINUX_SRC)
+$(LINUX_SRC): $(LINUX_VERSION)
+	$(Q)rm -f $@
+	$(Q)ln -sf $< $@
+
+Image: $(LINUX_SRC)
 	$(Q)(cd $(LINUX_SRC); make $@)
 
-clean:
+clean: $(LINUX_SRC)
 	$(Q)(cd $(ROOTFS_DIR); make $@)
 	$(Q)(cd $(CALLGRAPH_DIR); make $@)
 	$(Q)(cd $(LINUX_SRC); make $@)

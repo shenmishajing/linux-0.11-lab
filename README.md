@@ -22,7 +22,7 @@ If you want to learn the latest [Linux Kernel](http://www.kernel.org), please tr
     - [Hack Linux 0.11 on Mac](#hack-linux-011-on-mac)
 
 - [Build on Other Systems (Include Mac OS X, Windows)](#build-on-other-systems-include-mac-os-x-windows)
-    - [Setup with Docker Toolbox and Dockerfile](#setup-with-docker-toolbox-and-dockerfile)
+    - [Setup with Docker Toolbox and Docker CE](#setup-with-docker-toolbox-and-docker-ce)
     - [Hack Linux 0.11 on other systems](#hack-linux-011-on-other-systems)
 
 
@@ -151,6 +151,16 @@ Dockerfile, we can simply build a Linux 0.11 Lab on every system.
 
     - Linux and Mac OSX: [Docker CE](https://store.docker.com/search?type=edition&offering=community)
     - Windows: [Docker Toolbox Installation](https://www.docker.com/docker-toolbox)
+
+- Choose a working directory
+
+    For the `default` system on virtualbox installed by Docker Toolbox, please use `/mnt/sda1` instead of  the default `/root`, otherwise, data will be lost.
+
+        $ cd /mnt/sda1
+
+    For Linux and Mac OSX, please simply choose one directory under `~/Documents` or `~/Downloads`.
+
+        $ cd ~/Documents
 
 - Build and Start the service
 

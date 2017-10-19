@@ -145,7 +145,7 @@ Only need to install the docker toolbox, which is a lightweight Linux
 distribution made specifically to run Docker containers, with this tool and our
 Dockerfile, we can simply build a Linux 0.11 Lab on every system.
 
-### Setup with Docker Toolbox and Dockerfile
+### Setup with Docker Toolbox and Docker CE
 
 - Install Docker Toolbox and boot into it
 
@@ -157,11 +157,34 @@ Dockerfile, we can simply build a Linux 0.11 Lab on every system.
         $ git clone https://github.com/tinyclub/cloud-lab.git
         $ cd cloud-lab/ && tools/docker/choose linux-0.11-lab
 
-        $ tools/docker/pull         # Pull from docker hub
-
         $ tools/docker/run
 
 - The above command will start a VNC page, login with the password printed in the console
+
+
+Notes:
+
+In order to run docker without password, please make sure your user is added in the docker group:
+
+    $ sudo usermod -aG docker $USER
+
+In order to speedup docker images downloading, please configure a local docker mirror in `/etc/default/docker`, for example:
+
+    $ grep registry-mirror /etc/default/docker
+    DOCKER_OPTS="$DOCKER_OPTS --registry-mirror=https://docker.mirrors.ustc.edu.cn"
+    $ service docker restart
+
+In order to avoid network ip address conflict, please try following changes and restart docker:
+
+    $ grep bip /etc/default/docker
+    DOCKER_OPTS="$DOCKER_OPTS --bip=10.66.0.10/16"
+    $ service docker restart
+
+If the above changes not work, try something as following:
+
+    $ grep dockerd /lib/systemd/system/docker.service
+    ExecStart=/usr/bin/dockerd -H fd:// --bip=10.66.0.10/16 --registry-mirror=https://docker.mirrors.ustc.edu.cn
+    $ service docker restart
 
 ### Hack Linux 0.11 on other systems
 

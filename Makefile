@@ -3,7 +3,7 @@ include Makefile.head
 all: Image
 
 $(LINUX_SRC): $(LINUX_VERSION)
-	$(Q)rm -f $@
+	$(Q)rm -rf $@
 	$(Q)ln -sf $< $@
 
 Image: $(LINUX_SRC)

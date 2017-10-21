@@ -21,14 +21,14 @@ dd if=$setup seek=1 bs=512 count=4 of=$image >/dev/null 2>&1
 [ ! -f "$kernel" ] && echo "Error: No kernel binary file there" && exit -1
 
 # Verify RAMDISK_START, must reserve enough space for bootsect, setup and kernel itself.
-# TODO: need to document why need 10 more blocks?
+# TODO: need to document why need 9 more blocks?
 
-KERNEL_SIZE=$(wc -c $kernel | tr -C -d [0-9])
+KERNEL_SIZE=$(stat -c%s $kernel | tr -d '\n')
 _SYS_SIZE=$(( KERNEL_SIZE + 5*512))
-_RAMDISK_START=$(( _SYS_SIZE / 1024 + 10))
+_RAMDISK_START=$(( _SYS_SIZE / 1024 + 9))
 
 if [ $_RAMDISK_START -gt $RAMDISK_START ]; then
-    echo "Note: The kernel binary is too big, Please increase RAMDISK_START to (140, 410)"
+    echo "Note: The kernel binary is too big, Please increase RAMDISK_START to (138, 410)"
     echo
     echo " e.g."
     echo "     $ make distclean"

@@ -23,7 +23,7 @@ Usage: <http://bochs.sf.net/doc/docbook/user/internal-debugger.html>
 
 `tools/bochs/bochs` is compiled as following:
 
-    $ ./configure --enable-all-optimizations --enable-disasm --enable-gdb-stub
+    $ ./configure --enable-all-optimizations --enable-disasm --enable-gdb-stub --with-x11 --with-term
     $ make
 
 ## Compile it with debugger support

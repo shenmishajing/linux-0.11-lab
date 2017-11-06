@@ -136,6 +136,11 @@ else
 endif
 
 # Allow to use curses based console via ssh
+# Exit with 'ESC + 2' + quit
+ifneq ($(SSH_TTY),)
+  G ?= 0
+endif
+
 VM_DISPLAY =
 ifeq ($(G),0)
   ifeq ($(VM), bochs)

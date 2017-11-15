@@ -18,10 +18,17 @@ endif
 
 EXAMPLES ?= ../examples/
 
+# Note: This not work on mac osx
+HD_SECTSIZE=$(shell fdisk -l $(HDA_IMG) | grep "Sector size" | grep -oE "[0-9]*" | head -1)
+HDP1_SECTOF=$(shell fdisk -l $(HDA_IMG) | grep img1 | tr -s ' ' | cut -d' ' -f2)
+HDP2_SECTOF=$(shell fdisk -l $(HDA_IMG) | grep img2 | tr -s ' ' | cut -d' ' -f2)
+HDP1_OFFSET=$(shell echo '$$(($(HD_SECTSIZE)*$(HDP1_SECTOF)))')
+HDP2_OFFSET=$(shell echo '$$(($(HD_SECTSIZE)*$(HDP2_SECTOF)))')
+
 HDA_DIR = _hda
 hda-mount: hda
 	$(Q)mkdir -p $(HDA_DIR)
-	$(Q)sudo mount -o offset=1024 $(HDA_IMG) $(HDA_DIR)
+	$(Q)sudo mount -o offset=$(HDP1_OFFSET) $(HDA_IMG) $(HDA_DIR)
 hda-umount:
 ifeq ($(HDA_DIR), $(wildcard $(HDA_DIR)))
 	$(Q)sudo umount $(HDA_DIR)

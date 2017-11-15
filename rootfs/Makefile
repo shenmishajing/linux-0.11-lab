@@ -19,11 +19,16 @@ endif
 EXAMPLES ?= ../examples/
 
 # Note: This not work on mac osx
-HD_SECTSIZE=$(shell fdisk -l $(HDA_IMG) | grep "Sector size" | grep -oE "[0-9]*" | head -1)
-HDP1_SECTOF=$(shell fdisk -l $(HDA_IMG) | grep img1 | tr -s ' ' | cut -d' ' -f2)
-HDP2_SECTOF=$(shell fdisk -l $(HDA_IMG) | grep img2 | tr -s ' ' | cut -d' ' -f2)
-HDP1_OFFSET=$(shell echo '$$(($(HD_SECTSIZE)*$(HDP1_SECTOF)))')
-HDP2_OFFSET=$(shell echo '$$(($(HD_SECTSIZE)*$(HDP2_SECTOF)))')
+ifeq ($(OS), Linux)
+  HD_SECTSIZE=$(shell fdisk -l $(HDA_IMG) | grep Units | grep -oE "[0-9]*" | tail -1)
+  HDP1_SECTOF=$(shell fdisk -l $(HDA_IMG) | grep img1 | tr -s ' ' | cut -d' ' -f2)
+  HDP2_SECTOF=$(shell fdisk -l $(HDA_IMG) | grep img2 | tr -s ' ' | cut -d' ' -f2)
+  HDP1_OFFSET=$(shell echo '$$(($(HD_SECTSIZE)*$(HDP1_SECTOF)))')
+  HDP2_OFFSET=$(shell echo '$$(($(HD_SECTSIZE)*$(HDP2_SECTOF)))')
+else
+  HDP1_OFFSET=1024
+  HDP2_OFFSET=63504384
+endif
 
 HDA_DIR = _hda
 hda-mount: hda

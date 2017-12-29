@@ -122,6 +122,7 @@ Host:
 
     $ cd examples/
     $ <adding new files here>
+    $ make boot-hd
 
 Guest:
 

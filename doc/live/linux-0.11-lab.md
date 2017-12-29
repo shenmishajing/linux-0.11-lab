@@ -10,6 +10,7 @@
     + <http://showdesk.io/50bc346f53a19b4d1f813b428b0b7b49>
     + <http://showterm.io/ffb67385a07fd3fcec182>
     + <http://showterm.io/4b628301d2d45936a7f8a>
+    + <http://tinylab.org/lad-book>
     + <http://tinylab.cloud:6080>
     + <http://oldlinux.org>
     + README.md
@@ -121,7 +122,6 @@ Host:
 
     $ cd examples/
     $ <adding new files here>
-    $ make hd-install
 
 Guest:
 
@@ -145,7 +145,10 @@ Host:
 
 Host:
 
-    $ patch -p1 < examples/syscall/syscall.patch
+    $ cd src
+    $ patch -p1 < ../examples/syscall/syscall.patch
+    $ cd ../
+
     $ make
     $ make boot-hd
 

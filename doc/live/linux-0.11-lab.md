@@ -160,7 +160,7 @@ Guest:
 
 ## Generating function calling tree
 
-    $ make cg func=main
+    $ make cg f=main
     $ ls callgraph/main.__init_main_c.svg
 
 ## Booting both of Image and Rootfs from harddisk

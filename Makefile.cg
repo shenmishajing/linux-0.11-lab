@@ -10,7 +10,7 @@
 
 f ?= main
 d ?= ./src
-D ?= 1000
+D ?= 10
 
 # Mac OS X
 ifeq ($(OS), Darwin)

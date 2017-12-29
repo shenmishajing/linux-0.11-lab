@@ -6,9 +6,11 @@
 # f: function
 # d: directory or file
 # b: callgraph picture displayer
+# D: calling depth
 
 f ?= main
 d ?= ./src
+D ?= 1000
 
 # Mac OS X
 ifeq ($(OS), Darwin)
@@ -18,5 +20,5 @@ else
 endif
 
 cg:
-	$(Q)$(CG) -f $(f) -d $(d) -b $(b)
+	$(Q)$(CG) -f $(f) -d $(d) -b $(b) -D $(D)
 

@@ -112,27 +112,39 @@ fileno=`echo $file | tr -c -d ' ' | wc -c`
 if [ $fileno -ne 1 ]; then
 	echo "Match: $fileno"
 	echo "File:"
+	echo "     0  All files under $dir"
 	echo "$match" | cat -n
 	files=($file)
-	read -p "Select: 1 ~ $fileno ? " file_in
-	while [ $file_in -lt 1 -o $file_in -gt $fileno ]; do
+	read -p "Select: 0 ~ $fileno ? " file_in
+	if [ $file_in -ne 0 ]; then
+          while [ $file_in -lt 1 -o $file_in -gt $fileno ]; do
 		read -p "Select: 1 ~ $fileno ? " file_in
-	done
-	((file_in-=1))
-	file=${files[$file_in]}
-	((file_in+=1))
+	  done
+	  ((file_in-=1))
+	  file=${files[$file_in]}
+	  ((file_in+=1))
+        fi
 else
 	file_in=1
 fi
-[ -z "$file" ] && echo "Note: No file found for $func" && exit 1
-echo "File: $file"
-func=`echo "$match" | sed -n -e "${file_in},${file_in}p" | sed -n -e "s/.* \([a-zA-Z0-9_]*${func}[a-zA-Z0-9_]*\)(.*).*/\1/p"`
-[ -z "$func" ] && echo "Note: No such function found: $func" && exit 1
+
+if [ $file_in -ne 0 ]; then
+  [ -z "$file" ] && echo "Note: No file found for $func" && exit 1
+  echo "File: $file"
+  func=`echo "$match" | sed -n -e "${file_in},${file_in}p" | sed -n -e "s/.* \([a-zA-Z0-9_]*${func}[a-zA-Z0-9_]*\)(.*).*/\1/p"`
+  [ -z "$func" ] && echo "Note: No such function found: $func" && exit 1
+else
+  file="`find -L $dir -name '*.c' -or -name '*.h'`"
+fi
 
 # Genrate the calling tree of this function
 # Convert it to .dot format with tree2dotx
 # Convert it to jpg format with dot of Graphviz
-tmp=`echo $file | tr '/' '_' | tr '.' '_'`
+if [ $file_in -ne 0 ]; then
+  tmp=`echo $file | tr '/' '_' | tr '.' '_'`
+else
+  tmp="all"
+fi
 pic=${func}.${tmp}.${PIC_TYPE}
 long_pic=${OUT_DIR}/${pic}
 

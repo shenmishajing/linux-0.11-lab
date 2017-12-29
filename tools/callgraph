@@ -109,7 +109,7 @@ echo "Func: $func"
 # Let users choose the target files
 fileno=`echo $file | tr -c -d ' ' | wc -c`
 ((fileno+=1))
-if [ $fileno -ne 1 ]; then
+if [ $fileno -ne 0 ]; then
 	echo "Match: $fileno"
 	echo "File:"
 	echo "     0  All files under $dir"
@@ -134,7 +134,7 @@ if [ $file_in -ne 0 ]; then
   func=`echo "$match" | sed -n -e "${file_in},${file_in}p" | sed -n -e "s/.* \([a-zA-Z0-9_]*${func}[a-zA-Z0-9_]*\)(.*).*/\1/p"`
   [ -z "$func" ] && echo "Note: No such function found: $func" && exit 1
 else
-  file="`find -L $dir -name '*.c' -or -name '*.h'`"
+  file="`find -L $dir -name '*.c' -or -name '*.h' | tr '\n' ' '`"
 fi
 
 # Genrate the calling tree of this function

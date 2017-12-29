@@ -5,6 +5,7 @@ ifeq ($V, 1)
   Q =
   S =
 else
+  MAKEFLAGS += --no-print-directory
   S ?= -s
   Q ?= @
 endif

@@ -182,4 +182,7 @@ Guest:
 
 Host:
 
+    $ make switch VM=qemu
     $ make hd-boot
+
+Note: This target only support qemu currently.

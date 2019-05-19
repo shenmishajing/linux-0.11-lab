@@ -141,16 +141,16 @@ Same as [Hack Linux-0.11 on Linux](#hack-linux-011-on-linux)
 If want to use this Lab on the other systems, such as Windows (and even Mac OS
 X), with the Dockerfile support, everything is simplified.
 
-Only need to install the docker toolbox, which is a lightweight Linux
+Only need to install the docker ce or docker toolbox, which is a lightweight Linux
 distribution made specifically to run Docker containers, with this tool and our
 Dockerfile, we can simply build a Linux 0.11 Lab on every system.
 
 ### Setup with Docker Toolbox and Docker CE
 
-- Install Docker Toolbox and boot into it
+- Install Docker and boot into it
 
-    - Linux and Mac OSX: [Docker CE](https://store.docker.com/search?type=edition&offering=community)
-    - Windows: [Docker Toolbox Installation](https://www.docker.com/docker-toolbox)
+    - Linux, Mac OSX, Windows 10: [Docker CE](https://store.docker.com/search?type=edition&offering=community)
+    - Older Windows: [Docker Toolbox Installation](https://www.docker.com/docker-toolbox)
 
 - Choose a working directory
 

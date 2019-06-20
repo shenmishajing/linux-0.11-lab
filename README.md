@@ -3,9 +3,9 @@ Linux 0.11 Lab
 
 The old Linux kernel source version [0.11](http://oldlinux.org) and the integrated experiment environment.
 
-[CS630 Qemu Lab](https://github.com/tinyclub/cs630-qemu-lab) is a related project, it is a friendly learning environment for the X86 assembly course: [CS630](http://www.cs.usfca.edu/%7Ecruse/cs630f06/).
+[CS630 Qemu Lab](https://gitee.com/tinylab/cs630-qemu-lab) is a related project, it is a friendly learning environment for the X86 assembly course: [CS630](http://www.cs.usfca.edu/%7Ecruse/cs630f06/).
 
-If you want to learn the latest [Linux Kernel](http://www.kernel.org), please try our [Linux Lab](https://github.com/tinyclub/linux-lab)
+If you want to learn the latest [Linux Kernel](http://www.kernel.org), please try our [Linux Lab](https://gitee.com/tinylab/linux-lab)
 
 [![Linux 0.11 Lab Demo](images/linux-0.11-lab-with-docker-vncserver+novnc.jpg)](http://showdesk.io/2017-03-18-17-54-23-linux-0.11-lab-usage-00-06-42/)
 
@@ -40,7 +40,7 @@ If you want to learn the latest [Linux Kernel](http://www.kernel.org), please tr
 
 - Basic information
     - Homepage: <http://tinylab.org/linux-0.11-lab>
-    - Repository: <https://github.com/tinyclub/linux-0.11-lab>
+    - Repository: <https://gitee.com/tinylab/linux-0.11-lab>
 
 - Features
     - compilable with many different versions of Gcc.
@@ -164,7 +164,7 @@ Dockerfile, we can simply build a Linux 0.11 Lab on every system.
 
 - Build and Start the service
 
-        $ git clone https://github.com/tinyclub/cloud-lab.git
+        $ git clone https://gitee.com/tinylab/cloud-lab.git
         $ cd cloud-lab/ && tools/docker/choose linux-0.11-lab
 
         $ tools/docker/run
@@ -288,7 +288,7 @@ A new demonstration is added: [Linux 0.11 Lab: Add a new syscall into Linux 0.11
     * rewrite the document: README.md
     * Fix up "Reset-floppy Called"
     * clean up everything
-    * repo: <https://github.com/tinyclub/linux-0.11-lab>
+    * repo: <https://gitee.com/tinylab/linux-0.11-lab>
 
 * 2012-04-30, yuanxinyu <yuanxinyu.hangzhou@gmail.com>
     * add Mac OS X support

@@ -68,7 +68,7 @@ QEMU_OPTS  = -m $(MEM) -boot a -fda $(LINUX_IMAGE) 2>/dev/null
 QEMU_PREBUILT_PATH= $(TOOL_DIR)/qemu
 # Linux 0.11 floppy support is broken in new qemu version, so, please use prebuilt 0.10.6 qemu by default
 # But the harddisk support is ok in both of old and new qemu, use qemu here to get possible kvm speedup
-ifeq ($(filter $(MAKECMDGOALS),start-hd boot-hd hd-boot hd-start),$(MAKECMDGOALS))
+ifeq ($(filter $(MAKECMDGOALS),start-hd boot-hd hd-boot hd-start debug-hd),$(MAKECMDGOALS))
    QEMU_PREBUILT ?= 0
 else
    QEMU_PREBUILT ?= 1
@@ -78,10 +78,12 @@ endif
 ifeq ($(QEMU_PREBUILT),0)
    # KVM speedup for x86 architecture, assume our host is x86 currently
    QEMU := sudo $(QEMU)
-   KVM_DEV ?= /dev/kvm
-   ifeq ($(KVM_DEV),$(wildcard $(KVM_DEV)))
-     QEMU_OPTS += -enable-kvm
-     _QEMU_OPTS += -enable-kvm
+   ifneq ($(findstring debug,$(MAKECMDGOALS)),debug)
+     KVM_DEV ?= /dev/kvm
+     ifeq ($(KVM_DEV),$(wildcard $(KVM_DEV)))
+       QEMU_OPTS += -enable-kvm
+       _QEMU_OPTS += -enable-kvm
+     endif
    endif
 endif
 

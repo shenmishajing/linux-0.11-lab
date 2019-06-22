@@ -73,7 +73,6 @@ Here is the deprecated method:
 
 **Note** To enable kvm speedup for hardisk boot, please make sure cpu virtualization is enabled in bios features.
 
-    $ cd src/
     $ make help		// get help
     $ make  		// compile
     $ make boot-hd	// boot it on qemu with hard disk image
@@ -86,8 +85,8 @@ Here is the deprecated method:
     // edit .kernel_gdbinit(for kernel.sym) and .boot_gdbinit(for bootsect.sym and setup.sym) before debugging
 
     $ make debug-hd	// debug kernel.sym via qemu and start gdb automatically to connect it.
-    $ make debug-hd DST=boot/bootsect.sym  // debug bootsect, can not debug code after ljmp
-    $ make debug-hd DST=boot/setup.sym     // debug setup, can not debug after ljmp
+    $ make debug-hd DST=src/boot/bootsect.sym  // debug bootsect, can not debug code after ljmp
+    $ make debug-hd DST=src/boot/setup.sym     // debug setup, can not debug after ljmp
 
 ## Build on Mac OS X
 

@@ -76,7 +76,6 @@ Here is the deprecated method:
     $ make  		// compile
     $ make boot-hd	// boot it on qemu with hard disk image
     $ make boot-hd G=0  // Use curses based terminal instead of graphics, friendly for ssh login, exit with 'ESC+2'
-    $ QEMU_PREBUILT=0 make boot-hd // Don't use prebuilt qemu. latest qemu only boot with hd rootfs
 
     $ make switch                // switch to another emulator, between qemu and bochs
     Switch to use emulator: bochs
@@ -106,7 +105,7 @@ Here is the deprecated method:
 
 * Install cross compiler gcc and binutils
 
-        $ sudo port install i386-elf-binutils i386-elf-gcc 
+        $ sudo port install i386-elf-binutils i386-elf-gcc
 
 * Install qemu
 
@@ -263,12 +262,12 @@ Some examples are stored in `examples/` with their own README.md:
 
 A new demonstration is added: [Linux 0.11 Lab: Add a new syscall into Linux 0.11](http://showterm.io/4b628301d2d45936a7f8a)
 
-    Host:
+  Host:
 
     $ patch -p1 < examples/syscall/syscall.patch
     $ make start-hd
 
-    Emulator:
+  Emulator:
 
     $ cd examples/syscall/
     $ make
@@ -276,6 +275,36 @@ A new demonstration is added: [Linux 0.11 Lab: Add a new syscall into Linux 0.11
     ld -o syscall syscall.o
     ./syscall
     Hello, Linux 0.11
+
+### Linux 0.00
+
+  Host:
+
+    $ make boot-hd
+
+  Emulator:
+
+    $ cd examples/linux-0.00
+    $ make
+    $ sync
+
+  Host:
+    $ make linux-0.00
+
+### Building Linux 0.11 in Linux 0.11
+
+  Host:
+
+    $ make boot-hd
+
+  Emulator:
+
+    $ cd examples/linux-0.11
+    $ make
+    $ sync
+
+  Host:
+    $ make hd-boot
 
 ## Changes
 

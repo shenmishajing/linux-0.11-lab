@@ -71,6 +71,8 @@ Here is the deprecated method:
 
 ### Hack Linux 0.11 on Linux
 
+**Note** To enable kvm speedup for hardisk boot, please make sure cpu virtualization is enabled in bios features.
+
     $ cd src/
     $ make help		// get help
     $ make  		// compile

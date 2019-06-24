@@ -347,4 +347,6 @@ A new demonstration is added: [Linux 0.11 Lab: Add a new syscall into Linux 0.11
 
 ## Contact and Sponsor
 
+** Contact us and Sponsor via wechat **
+
 ![contact-sponsor](images/contact-sponsor.png)

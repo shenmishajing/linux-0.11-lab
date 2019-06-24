@@ -162,7 +162,7 @@ Dockerfile, we can simply build a Linux 0.11 Lab on every system.
 
         $ cd ~/Documents
 
-- Build and Start the service
+- Run and login the lab
 
         $ git clone https://gitee.com/tinylab/cloud-lab.git
         $ cd cloud-lab/ && tools/docker/choose linux-0.11-lab

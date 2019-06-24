@@ -36,6 +36,8 @@ If you want to learn the latest [Linux Kernel](http://www.kernel.org), please tr
 
 - [Changes](#changes)
 
+- [Contact and Sponsor](#contact-and-sponsor)
+
 ## Introduction
 
 - Basic information
@@ -343,3 +345,6 @@ A new demonstration is added: [Linux 0.11 Lab: Add a new syscall into Linux 0.11
 * 1991, Linus
     * write and release the original Linux 0.11.
 
+## Contact and Sponsor
+
+![contact-sponsor](images/contact-sponsor.png)

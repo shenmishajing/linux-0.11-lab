@@ -1,3 +1,5 @@
+**Subscribe Wechat**：<br/><img src='images/tinylab-wechat.jpg' width='110px'/><br/>
+
 Linux 0.11 Lab
 ==============
 

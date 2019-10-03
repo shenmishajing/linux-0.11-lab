@@ -33,9 +33,12 @@ endif
 HDA_DIR = _hda
 hda-mount: hda
 	$(Q)mkdir -p $(HDA_DIR)
+	$(Q)echo mounting $(HDA_IMG) to $(PWD)/$(HDA_DIR)
 	$(Q)sudo mount -o offset=$(HDP1_OFFSET) $(HDA_IMG) $(HDA_DIR)
+
 hda-umount:
 ifeq ($(HDA_DIR), $(wildcard $(HDA_DIR)))
+	$(Q)echo umounting  $(PWD)/$(HDA_DIR)
 	$(Q)sudo umount $(HDA_DIR)
 	$(Q)rm -rf $(HDA_DIR)
 endif

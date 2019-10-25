@@ -80,7 +80,7 @@ Here is the deprecated method:
     $ make help		// get help
     $ make  		// compile
     $ make boot-hd	// boot it on qemu with hard disk image
-    $ make boot-hd G=0  // Use curses based terminal instead of graphics, friendly for ssh login, exit with 'ESC+2'
+    $ make boot-hd G=0  // Use curses based terminal instead of graphics, friendly for ssh login, exit with 'ESC+2 quit' or 'ALT+2 quit'
 
     $ make switch                // switch to another emulator, between qemu and bochs
     Switch to use emulator: bochs

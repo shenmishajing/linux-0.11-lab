@@ -23,7 +23,11 @@ ROOTFS_DIR := rootfs
 CALLGRAPH_DIR := callgraph
 
 # Xterminal: lxterminal, terminator ...
-XTERM ?= $(shell echo `tools/xterm.sh lxterminal`)
+ifeq ($(shell env | grep -q ^XDG; echo $$?), 0)
+  XTERM ?= $(shell echo `tools/xterm.sh lxterminal`)
+else
+  XTERM := null
+endif
   GDB ?= gdb
 
 # Qemu

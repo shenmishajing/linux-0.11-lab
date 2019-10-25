@@ -138,7 +138,10 @@ endif
 # Allow to use curses based console via ssh
 # Exit with 'ESC + 2' + quit
 ifneq ($(SSH_TTY),)
-  G ?= 0
+  G := 0
+endif
+ifeq ($(XTERM),null)
+  G := 0
 endif
 
 VM_DISPLAY =
@@ -207,9 +210,15 @@ linux-0.00:
 # Debugging the above targets
 
 GDB_CMD ?= $(GDB) --quiet $(DST)
-XTERM_CMD ?= $(Q)$(XTERM) --working-directory=$(CURDIR) -T "$(GDB_CMD)" -e "$(GDB_CMD)"
 
-XTERM_STATUS = $(shell $(XTERM) --help >/dev/null 2>&1; echo $$?)
+ifneq ($(XTERM), null)
+  XTERM_CMD ?= $(Q)$(XTERM) --working-directory=$(CURDIR) -T "$(GDB_CMD)" -e "$(GDB_CMD)"
+
+  XTERM_STATUS = $(shell $(XTERM) --help >/dev/null 2>&1; echo $$?)
+else
+  XTERM_STATUS := 1
+  XTERM_CMD    := null
+endif
 ifeq ($(XTERM_STATUS), 0)
   DEBUG_CMD = $(XTERM_CMD)
 else
